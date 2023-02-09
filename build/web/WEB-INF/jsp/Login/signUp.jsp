@@ -36,11 +36,11 @@
                                             class="form-control rounded-left"
                                             placeholder="Email"
                                             name="Email"
-                                            onblur="return EmailExist();"
+                                            onblur="EmailExist();"
                                             id="Email"
                                             />
+                                        <div id="EmailError" style="color:red;"></div>
                                     </div>
-                                    <div id="EmailError"></div>
                                     <div class="form-group">
                                         <input
                                             type="text"
@@ -50,19 +50,23 @@
                                             onblur="UserNameExist();"
                                             id="UserName"
                                             />
+                                        <div id="UserNameError" style="color:red;"></div>
                                     </div>
-                                    <div id="UserNameError"></div>
-                                    <div class="form-group d-flex">
+                                    
+                                    <div class="form-group">
                                         <input
                                             type="password"
                                             class="form-control rounded-left"
                                             placeholder="Password"
                                             name="Password"
                                             id="Password"
+                                            onblur="validatePassword()"
                                             />
+                                        <div id="PasswordError" style="color:red;"></div>
                                     </div>
                                     <div class="form-group">
                                         <button
+                                            id="registerBtn"
                                             type="button"
                                             class="form-control btn btn-primary rounded submit px-3"
                                             onclick="validateSignUp()"

@@ -13,7 +13,7 @@
         <%@include file="../cdn/cdn.jsp"%>
     </head>
     <body>
-        <c:if test="${Action eq 'signin'}">
+            <div id="load"></div>
             <section class="ftco-section">
                 <div class="container">
                     <div class="row justify-content-center">
@@ -25,13 +25,14 @@
                                     <span class="fa fa-user-o"></span>
                                 </div>
                                 <h3 class="text-center mb-4">Sign In</h3>
-                                <form action="" id="SignInForm" name="SignIn" method="POST" class="login-form">
+                                <form id="SignInForm" name="SignIn" method="POST" class="login-form">
                                     <div class="form-group">
                                         <input
                                             type="text"
                                             class="form-control rounded-left"
                                             placeholder="Username"
                                             name="UserName"
+                                            id="UserName"
                                             />
                                     </div>
                                     <div class="form-group d-flex">
@@ -40,13 +41,14 @@
                                             class="form-control rounded-left"
                                             placeholder="Password"
                                             name="Password"
+                                            id="Password"
                                             />
                                     </div>
                                     <div class="form-group">
                                         <button
-                                            type="submit"
+                                            type="button"
                                             class="form-control btn btn-primary rounded submit px-3"
-                                            onclick="return validateSignIn()"
+                                            onclick="validateSignIn()"
                                             >
                                             Login
                                         </button>
@@ -65,6 +67,5 @@
                     </div>
                 </div>
             </section>
-        </c:if>
     </body>
 </html>
