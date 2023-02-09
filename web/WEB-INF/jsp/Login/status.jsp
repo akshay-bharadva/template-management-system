@@ -23,4 +23,7 @@
             <span>UserName is already Exist</span>
         </c:if>
     </c:when>
+    <c:when test="${Action eq 'verifyUser'}">
+        <input type="hidden" name="VerifyUserStatus" id="VerifyUserStatus" value="${status}">
+    </c:when>
 </c:choose>

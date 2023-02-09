@@ -66,20 +66,23 @@ public class LoginController {
         return modelAndView;
     }
     
-    @RequestMapping(params = "cmdAction=loadHome" , method = {RequestMethod.POST})
+    @RequestMapping(params = "cmdAction=verifyUser" , method = {RequestMethod.POST})
     public ModelAndView verifyUser(HttpServletRequest request, HttpServletResponse response, LoginFormBean loginFormBean) {
-        ModelAndView modelAndView = new ModelAndView();
+        ModelAndView modelAndView = new ModelAndView("Login/status");
         try {
-            int result = loginService.verifyUser(loginFormBean);
-            if (result > 0) {
-                modelAndView.setViewName("home");
-            } else {
-                modelAndView.addObject("Action", "signin");
-                modelAndView.setViewName("Login/signUp");
-            }
+            int status = loginService.verifyUser(loginFormBean);
+            modelAndView.addObject("status", status);
+            modelAndView.addObject("Action", "verifyUser");
+            CommonMember.appendLogFile("@service :: verifyUser:- " + status);
         } catch (Exception ex) {
             CommonMember.errorHandler(ex);
         }
+        return modelAndView;
+    }
+    
+        @RequestMapping(params = "cmdAction=loadHome" , method = {RequestMethod.POST , RequestMethod.GET})
+    public ModelAndView loadHome(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView modelAndView = new ModelAndView("home");
         return modelAndView;
     }
     
