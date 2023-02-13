@@ -6,8 +6,10 @@
  */
 package com.finlogic.tms.template.controller;
 
+import com.finlogic.tms.template.service.TemplateService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,6 +21,9 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping(value="template.fin")
 public class TemplateController {
+    
+    @Autowired
+    TemplateService templateService;
     
     @RequestMapping(params="cmdAction=getTemplate")
     public ModelAndView loadTemplate(HttpServletRequest request , HttpServletResponse response)
