@@ -1,0 +1,30 @@
+SMAP
+template_jsp.java
+JSP
+*S JSP
+*F
++ 0 template.jsp
+WEB-INF/jsp/Template/template.jsp
++ 1 header.jsp
+WEB-INF/jsp/Template/../header.jsp
++ 2 cdn.jsp
+WEB-INF/jsp/Template/../cdn/cdn.jsp
++ 3 footer.jsp
+WEB-INF/jsp/Template/../footer.jsp
+*L
+5,12:51
+1#1,2:63
+1#2,5:65
+5,6:69
+10,7:74
+16,4:80
+19,6:83
+24,4:88
+27,4:91
+30,4:94
+33,9:97
+3#1,69:106
+16#0,36:175
+5#3,7:211
+51#0,4:217
+*E
