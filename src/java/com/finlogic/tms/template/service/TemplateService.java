@@ -5,10 +5,20 @@
  */
 package com.finlogic.tms.template.service;
 
+import com.finlogic.tms.template.bean.TemplateEntityBean;
+import com.finlogic.tms.template.bean.TemplateFormBean;
+import java.util.List;
+
 /**
  *
  * @author njuser
  */
 public interface TemplateService {
     
+    public int insertTemplateDetail(TemplateFormBean templateFormBean) throws Exception;
+    public int updateTemplateDetail(TemplateFormBean templateFormBean) throws Exception;
+    public int deleteTemplateDetail(TemplateFormBean templateFormBean) throws Exception;
+    public List getAllTemplateDetail(TemplateFormBean templateFormBean) throws Exception;
+    public List getUpdateData(String templateType , String category) throws Exception;
+    public TemplateEntityBean convertFormBeanToEntityBean(TemplateFormBean objFrmBean);
 }

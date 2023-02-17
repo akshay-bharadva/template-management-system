@@ -8298,3 +8298,14 @@ textarea.form-control {
         border: 1px solid transparent;
         background: #1089ff;
         color: #fff; }
+
+  /* styles */
+.nav-item{
+    cursor: pointer !important;
+}
+
+/* height */
+.ck.ck-content.ck-editor__editable.ck-rounded-corners.ck-editor__editable_inline.ck-blurred,
+.ck.ck-content.ck-editor__editable.ck-rounded-corners.ck-editor__editable_inline.ck-focused{
+  min-height:400px !important;
+}    
