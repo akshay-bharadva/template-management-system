@@ -6,6 +6,7 @@
 package com.finlogic.tms.login.service;
 
 import com.finlogic.tms.login.bean.LoginFormBean;
+import java.util.List;
 
 /**
  *
@@ -16,6 +17,8 @@ public interface LoginService {
     public int insertUserLoginDetail(LoginFormBean loginFormBean) throws Exception;
    
     public int verifyUser(LoginFormBean loginFormBean) throws Exception;
+    
+    public List getUserCode(LoginFormBean loginFormBean) throws Exception;
     
     public int checkEmailExist(String email) throws Exception;
     

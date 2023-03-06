@@ -11,10 +11,19 @@ package com.finlogic.tms.login.bean;
  */
 public class LoginFormBean {
     
+    String UserCode;
     String UserName;
     String Password;
     String Email;
     String UserType;
+
+    public String getUserCode() {
+        return UserCode;
+    }
+
+    public void setUserCode(String UserCode) {
+        this.UserCode = UserCode;
+    }
 
     public String getUserType() {
         return UserType;

@@ -8,6 +8,7 @@ package com.finlogic.tms.login.service.impl;
 import com.finlogic.tms.login.datamanager.LoginDataManager;
 import com.finlogic.tms.login.bean.LoginFormBean;
 import com.finlogic.tms.login.service.LoginService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +33,12 @@ public class LoginServiceImpl implements LoginService{
     public int verifyUser(LoginFormBean loginFormBean) throws Exception {
         
         return loginDataManager.verifyUser(loginFormBean);
+    }
+    
+    @Override
+    public List getUserCode(LoginFormBean loginFormBean) throws Exception {
+        
+        return loginDataManager.getUserCode(loginFormBean);
     }
 
     @Override

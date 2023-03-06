@@ -10,10 +10,10 @@ import com.finlogic.tms.login.bean.LoginFormBean;
 import com.finlogic.util.CommonMember;
 import com.finlogic.util.persistence.SQLUtility;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 //import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -63,6 +63,24 @@ public class LoginDataManagerImpl implements LoginDataManager{
         return sqlUtility.getIntValue(CONNECTION_ALIAS, query.toString(), new MapSqlParameterSource(map));
     }
 
+    @Override
+    public List getUserCode(LoginFormBean loginFormBean) throws Exception {
+        StringBuilder query = new StringBuilder();
+        Map map = new HashMap();
+
+        query.append(" SELECT USERCODE,TYPE FROM TMS_USER_LOGIN UL INNER JOIN ");
+        query.append(" TMS_USER_TYPE UT ON UL.USER_TYPE = UT.ID ");
+        query.append(" WHERE PASSWORD = md5(:PASSWORD) AND (EMAIL = :EMAIL OR USERNAME = :USERNAME)");
+
+        map.put("EMAIL", loginFormBean.getEmail());
+        map.put("USERNAME", loginFormBean.getUserName());
+        map.put("PASSWORD", loginFormBean.getPassword());
+
+        CommonMember.appendLogFile("@Repository :: getUserCode :: query:- " + query.toString());
+        CommonMember.appendLogFile("@Repository :: getUserCode :: map :- " + map);
+        return sqlUtility.getList(CONNECTION_ALIAS, query.toString(), new MapSqlParameterSource(map));
+    }
+    
     @Override
     public int checkEmailExist(String email) throws Exception{
         
