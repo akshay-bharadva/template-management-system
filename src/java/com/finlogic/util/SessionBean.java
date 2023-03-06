@@ -5,6 +5,8 @@
  */
 package com.finlogic.util;
 
+import javax.servlet.http.HttpSession;
+
 /**
  *
  * @author njuser
@@ -14,8 +16,6 @@ public class SessionBean {
     private String usercode;
     private String username;
     private String usertype;
-    private String fromtime;
-    private String totime;
 
     public String getUsercode() {
         return usercode;
@@ -40,22 +40,5 @@ public class SessionBean {
     public void setUsertype(String usertype) {
         this.usertype = usertype;
     }
-
-    public String getFromtime() {
-        return fromtime;
-    }
-
-    public void setFromtime(String fromtime) {
-        this.fromtime = fromtime;
-    }
-
-    public String getTotime() {
-        return totime;
-    }
-
-    public void setTotime(String totime) {
-        this.totime = totime;
-    }
-    
     
 }

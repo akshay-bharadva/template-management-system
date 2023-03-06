@@ -8,8 +8,13 @@ package com.finlogic.tms.login.controller;
 import com.finlogic.tms.login.bean.LoginFormBean;
 import com.finlogic.tms.login.service.LoginService;
 import com.finlogic.util.CommonMember;
+import com.finlogic.util.CommonUtil;
+import com.finlogic.util.SessionBean;
+import java.util.List;
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +32,9 @@ public class LoginController {
     
     @Autowired
     LoginService loginService;
+    
+//    @Autowired
+//    SessionBean sessionInfo;
     
     @RequestMapping(params = "cmdAction=loadSignUp" , method = {RequestMethod.GET ,RequestMethod.POST})
     public ModelAndView loadSignUp(HttpServletRequest request,HttpServletResponse response)
@@ -66,23 +74,43 @@ public class LoginController {
         return modelAndView;
     }
     
-    @RequestMapping(params = "cmdAction=verifyUser" , method = {RequestMethod.POST})
+    @RequestMapping(params = "cmdAction=verifyUser", method = {RequestMethod.POST})
     public ModelAndView verifyUser(HttpServletRequest request, HttpServletResponse response, LoginFormBean loginFormBean) {
         ModelAndView modelAndView = new ModelAndView("Login/status");
         try {
             int status = loginService.verifyUser(loginFormBean);
             modelAndView.addObject("status", status);
             modelAndView.addObject("Action", "verifyUser");
+
             CommonMember.appendLogFile("@service :: verifyUser:- " + status);
+
+            String Usercode = "", Type = "";
+            if (status > 0) {
+                List UserList = loginService.getUserCode(loginFormBean);
+                if (!UserList.isEmpty()) {
+                    Map map = (Map) UserList.get(0);
+                    if (map.get("USERCODE") != null && map.get("TYPE") != null) {
+                        Usercode = map.get("USERCODE").toString();
+                        Type = map.get("TYPE").toString();
+                    }
+
+                    CommonMember.appendLogFile("USERCODE :- " + Usercode + " TYPE:- " + Type);
+
+                    loginFormBean.setUserCode(Usercode);
+                    loginFormBean.setUserType(Type);
+                }
+
+                HttpSession session = request.getSession(true);
+
+                SessionBean sessionInfo = CommonUtil.getSessionBean(request);
+                sessionInfo.setUsercode(loginFormBean.getUserCode());
+                sessionInfo.setUsername(loginFormBean.getUserName());
+                sessionInfo.setUsertype(loginFormBean.getUserType());
+
+            }
         } catch (Exception ex) {
             CommonMember.errorHandler(ex);
         }
-        return modelAndView;
-    }
-    
-        @RequestMapping(params = "cmdAction=loadHome" , method = {RequestMethod.POST , RequestMethod.GET})
-    public ModelAndView loadHome(HttpServletRequest request, HttpServletResponse response) {
-        ModelAndView modelAndView = new ModelAndView("home");
         return modelAndView;
     }
     

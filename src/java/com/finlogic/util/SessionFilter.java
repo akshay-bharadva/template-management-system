@@ -6,9 +6,6 @@
 package com.finlogic.util;
 
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -18,8 +15,8 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import org.springframework.context.ApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+
 
 /**
  *
@@ -27,6 +24,9 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
  */
 public class SessionFilter implements Filter {
 
+    @Autowired
+    SessionBean sessionInfo;
+    
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -37,63 +37,51 @@ public class SessionFilter implements Filter {
 
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
-        HttpSession session = httpRequest.getSession(true);
-        String path = httpRequest.getRequestURI().substring(httpRequest.getRequestURI().lastIndexOf("/") + 1);
 
-        CommonMember.appendLogFile("This log is from Filter");
-        CommonMember.appendLogFile(path);
+        httpResponse.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); //HTTP 1.1
+        httpResponse.setHeader("Pragma", "no-cache");    //HTTP 1.0
+        httpResponse.setDateHeader("Expires", 0); // Proxies.
 
         try {
 
-//            if(session.getAttribute("USERCODE") == null){
-//                
-//            }else{
-//                
-//            }
-            CommonMember.appendLogFile(session.getAttribute("USERCODE") + "");
-            CommonMember.appendLogFile(session.getId() + "");
+            String url = httpRequest.getRequestURI().substring(httpRequest.getRequestURI().lastIndexOf("/") + 1);
 
-            if (path.equals("login.fin")) {
+            CommonMember.appendLogFile("This log is from Filter");
+            CommonMember.appendLogFile(url);
+
+            if (url.equals("index.fin") || url.equals("login.fin")) {
                 chain.doFilter(request, response);
-            } else {
-                
-                if (session.getAttribute("USERCODE") == null) {
-                    httpResponse.sendRedirect("login.fin?cmdAction=loadSignIn");
-                    return;
-                }
+                return;
+            }
+            
+            HttpSession session = httpRequest.getSession(false);
 
-                CommonMember.appendLogFile(session.getAttribute("USERCODE") + "");
-                CommonMember.appendLogFile(session.getId() + "");
-
-//                Date date = new Date();
-//
-//                ApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(httpRequest.getServletContext());
-//                SessionBean sb = (SessionBean) context.getBean("sessionBean");
-//
-//                String fromTime = sb.getFromtime();
-//                String toTime = sb.getTotime();
-//
-//                DateFormat formatter = new SimpleDateFormat("HH:mm:ss");
-//                Date ftime = (Date) formatter.parse(fromTime);
-//                Date ttime = (Date) formatter.parse(toTime);
-//
-//                date = (Date) formatter.parse(formatter.format(date));
-//                int cnt = 1;
-//                if (ftime.getTime() <= date.getTime() && ttime.getTime() >= date.getTime()) {
-//                    cnt = 1;
-//                }
-//                if (cnt == 1) {
-//                    chain.doFilter(request, response);
-//                } else {
-//                    httpResponse.sendRedirect("timeOver.jsp");
-//                }
-
-                chain.doFilter(request, response);
-
+            if (session != null && session.getAttribute("sessionInfo") != null) {
+                sessionInfo = (SessionBean)session.getAttribute("sessionInfo");
+                CommonMember.appendLogFile("USERCODE :- " + sessionInfo.getUsercode() +" | USERNAME :- " + sessionInfo.getUsername() + " | USERTYPE :- " + sessionInfo.getUsertype());
             }
 
-        } catch (Exception ex) {
+            if (session == null || sessionInfo == null || sessionInfo.getUsername() == null) {
+                httpResponse.setContentType("text/html;charset=UTF-8");
+                StringBuilder builder = new StringBuilder();
+                builder.append("<html><head><title>Access Denied</title></head>");
+                builder.append("<body>");
+                builder.append("<br/>");
+                builder.append("<h3 style='text-align:center;'>");
+                builder.append("SESSION EXPIRED");
+                builder.append("<br/><br/></h3>");
+                builder.append("<script>setTimeout(function(){ window.location='login.fin?cmdAction=loadSignIn'}, 3000);</script>");
+                builder.append("<h4 style='text-align:center;'>Click here to &nbsp;<a href='login.fin?cmdAction=loadSignIn'>Re-Login</a></h4>");
+                builder.append("</body></html>");
+                httpResponse.getWriter().write(builder.toString());
+            } else {
+                chain.doFilter(httpRequest, httpResponse);
 
+            }
+        } catch (IOException | ServletException ex) {
+
+            response.setContentType("text/html;charset=UTF-8");
+            CommonMember.errorHandler(ex);
         }
     }
 
