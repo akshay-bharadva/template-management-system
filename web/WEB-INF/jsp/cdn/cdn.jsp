@@ -40,5 +40,7 @@
 <script src="js/Util/swal/swal.util.js"></script>
 <script src="js/Login/login.js"></script>
 <script src="js/Template/template.js"></script>
+<script src="js/Category/category.js"></script>
+<script src="js/TmpType/tmptype.js"></script>
 <script src="js/Template/ck-editor-inject.js"></script>
     

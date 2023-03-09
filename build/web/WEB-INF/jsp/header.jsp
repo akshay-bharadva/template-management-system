@@ -29,10 +29,12 @@
                             Master
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="master">
+                            <li><a class="dropdown-item" href="tmptype.fin?cmdAction=loadtmptype" >Template Type</a></li>
                             <li><a class="dropdown-item" href="template.fin?cmdAction=loadTemplate">Template Master</a></li>
                             <!--onclick="loadTemplate()"-->
                             <li><a class="dropdown-item">User Master</a></li>
                             <li><a class="dropdown-item">History Master</a></li>
+                            <li><a class="dropdown-item" href="category.fin?cmdAction=loadCategory">Category Master</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
