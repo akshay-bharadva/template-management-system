@@ -38,6 +38,8 @@ public class CommonMember
         String currDateStr = sdf.format(curDate);
         String DrawLine = "----------------------------------------------------------------------------------------------------------------\n";
         finutils.errorhandler.ErrorHandler.PrintInLog(strErrorLogFilePath + "tms-log-"
-                + currDateStr + ".txt", DrawLine + ex.getMessage());
+                + currDateStr + ".txt", DrawLine + ex.toString());
+        finutils.errorhandler.ErrorHandler.PrintInFile(ex, strErrorLogFilePath + "tms-log-"
+                + currDateStr + ".txt");
     }
 }
