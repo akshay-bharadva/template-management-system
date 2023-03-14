@@ -28,6 +28,7 @@
             Category
         </div>
         <div class="card-body">
+            <input type="hidden" value="${categorylist}" name="categoryList" id="categoryList">
             <form id="Categoryform" name="Categoryform" method="POST" class="row g-3">
                 <input type="hidden" value="${task}" name="task" id="task">
                 <input type="hidden" value="${categoryID}" name="categoryID" id="categoryID">
@@ -44,7 +45,7 @@
                             <div class="col-md-9">
                                 <select class="form-select" id="cmbTemplateType" name="cmbTemplateType" onchange="onloadtype(this.value)" <c:if test="${task eq 'Delete' || task eq 'View'}">disabled</c:if>>
                                     <option selected value="0" disabled>
-                                        Select Type
+                                        Select Template
                                     </option>
                                     <c:forEach items="${tmptypelist}" var="list">
                                         <option value="${list.TEMPLATE_TYPE_ID}"<c:if test="${TMPID eq list.TEMPLATE_TYPE_ID}">selected</c:if>>${list.TEMPLATE_TYPE_NAME}</option>
@@ -143,7 +144,7 @@
                             <button type="button" class="btn btn-primary" onclick="addCategory()">Save Category</button>
                         </c:otherwise>
                     </c:choose>
-                    <button type="reset" class="btn btn-primary">Reset</button>
+                            <button type="reset" class="btn btn-primary"<c:if test="${task eq 'Delete' || task eq 'View'}">style="display: none"</c:if>>Reset</button>
                 </div>
             </form>
         </div>

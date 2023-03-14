@@ -14,7 +14,7 @@ public class TmptypeFormBean {
     public String tmptypeID;
     public String templateType;
     public String chkActive;
-    public String userCode = "34add156-90aa-11ec-aced-005056b76057";
+    public String userCode;
 //    public String task;
     
     //---------For Filter -------------

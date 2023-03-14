@@ -27,7 +27,7 @@
                 <div class="col-7"></div>
                 <div class="col-5">
                     <select class="form-select" id="cmbFilterType" name="cmbFilterType" onchange="showCategoryReport(this.value)">
-                        <option selected="" value="0">All Category</option>
+                        <option selected="" value="0">All Templates</option>
                         <c:forEach items="${tmptypelist}" var="list">
                             <option value="${list.TEMPLATE_TYPE_ID}">${list.TEMPLATE_TYPE_NAME}</option>
                         </c:forEach> 

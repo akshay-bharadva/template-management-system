@@ -18,5 +18,8 @@ public interface TemplateDataManager {
     public int updateTemplateDetail(TemplateEntityBean templateEntityBean) throws Exception;
     public int deleteTemplateDetail(TemplateEntityBean templateEntityBean) throws Exception;
     public List getAllTemplateDetail(TemplateEntityBean templateEntityBean)throws Exception;
-    public List getUpdateData(String templateType, String category)throws Exception;
+    public List getUpdateData(String templateId, String usercode)throws Exception;
+    public List getTemplateTye() throws Exception;
+    public List getCategory(String templateType) throws Exception;
+    public List getDefaultTemplateDetail(TemplateEntityBean templateEntityBean)throws Exception;
 }

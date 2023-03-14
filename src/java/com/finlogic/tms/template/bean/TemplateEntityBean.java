@@ -11,16 +11,25 @@ package com.finlogic.tms.template.bean;
  */
 public class TemplateEntityBean {
  
-    private String hdnTemplateType;
-    private String hdnTemplateCategory;
+    private String hdnTemplateId;
     private String templateType;
     private String category;
     private String title;
     private String body;
     private String isActive;
+    private String usercode; 
+    private String isdefaultTemplate;
     
      //-----------for Filter-----------
     private String FilterType;
+
+    public String getUsercode() {
+        return usercode;
+    }
+
+    public void setUsercode(String usercode) {
+        this.usercode = usercode;
+    }
 
     public String getFilterType() {
         return FilterType;
@@ -30,20 +39,12 @@ public class TemplateEntityBean {
         this.FilterType = FilterType;
     }
 
-    public String getHdnTemplateType() {
-        return hdnTemplateType;
+    public String getHdnTemplateId() {
+        return hdnTemplateId;
     }
 
-    public void setHdnTemplateType(String hdnTemplateType) {
-        this.hdnTemplateType = hdnTemplateType;
-    }
-
-    public String getHdnTemplateCategory() {
-        return hdnTemplateCategory;
-    }
-
-    public void setHdnTemplateCategory(String hdnTemplateCategory) {
-        this.hdnTemplateCategory = hdnTemplateCategory;
+    public void setHdnTemplateId(String hdnTemplateId) {
+        this.hdnTemplateId = hdnTemplateId;
     }
 
     public String getTemplateType() {
@@ -84,5 +85,13 @@ public class TemplateEntityBean {
 
     public void setIsActive(String isActive) {
         this.isActive = isActive;
+    }
+
+    public String getIsdefaultTemplate() {
+        return isdefaultTemplate;
+    }
+
+    public void setIsdefaultTemplate(String isdefaultTemplate) {
+        this.isdefaultTemplate = isdefaultTemplate;
     }
 }

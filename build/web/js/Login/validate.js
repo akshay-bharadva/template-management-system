@@ -12,7 +12,7 @@ function validate_email(frm,field_name,captionName,isCompulsory)
     if(isCompulsory === true) {
 
         if(fieldvalue.trim()=== "") {
-            value_common_alert(captionName);
+            value_common_alert(captionName,field_name);
             return false;
         }
 
@@ -20,12 +20,12 @@ function validate_email(frm,field_name,captionName,isCompulsory)
 
     if(fieldvalue.trim() !== "") {
         if(alpharegexpr.test(fieldvalue) !== true ) {
-            valid_common_alert(captionName);
+            valid_common_alert(captionName,field_name);
             frm.elements[field_name].focus();
             return false;
         }
         if(fieldvalue.length > 80 ) {
-            valid_email_alert(captionName,80);
+            valid_email_alert(captionName,80,field_name);
             frm.elements[field_name].focus();
             return false;
         }
@@ -44,7 +44,7 @@ function validate_loginid(frm,field_name,captionName,isCompulsory)
     if(isCompulsory === true) {
 
         if(fieldvalue.trim() === "") {
-            value_common_alert(captionName);
+            value_common_alert(captionName,field_name);
             frm.elements[field_name].focus();
             return false;
         }
@@ -53,7 +53,7 @@ function validate_loginid(frm,field_name,captionName,isCompulsory)
 
     if(fieldvalue.trim() !== "") {
         if(alpharegexpr.test(fieldvalue) !== true ) {
-            valid_common_alert_alphanumeric(captionName);
+            valid_common_alert_alphanumeric(captionName,field_name);
             frm.elements[field_name].focus();
             return false;
         }
@@ -70,28 +70,28 @@ function password_validate(frm,field_name,captionName,isCompulsory)
     if(fieldvalue.trim() === "")
     {
 //        alert("Enter valid value for \'"+captionName+"\'.");
-          value_common_alert(captionName);
+          value_common_alert(captionName,field_name);
         return false;
     }
     return true;
 }
 
-function valid_common_alert(caption) {
+function valid_common_alert(caption,field_name) {
     caption = caption.replace("\"","'");
-    showSwal("Please enter valid value for \'"+caption+"\'.","","error","");
+    showSwal("Please enter valid value for \'"+caption+"\'.","","error","",field_name);
 }
 
-function value_common_alert(caption) {
+function value_common_alert(caption,field_name) {
     caption = caption.replace("\"","'");
-    showSwal("Please enter value for \'"+caption+"\'.","","error","");
+    showSwal("Please enter value for \'"+caption+"\'.","","error","",field_name);
 }
 
-function valid_email_alert(caption,maxLength) {
+function valid_email_alert(caption,maxLength,field_name) {
     caption = caption.replace("\"","'");
-    showSwal("\'"+caption+"\' should not be greater than "+maxLength+" characters.","","error","");
+    showSwal("\'"+caption+"\' should not be greater than "+maxLength+" characters.","","error","",field_name);
 }
 
-function valid_common_alert_alphanumeric(caption){
+function valid_common_alert_alphanumeric(caption,field_name){
     caption = caption.replace("\"","'");
-    showSwal("Please enter valid value (alphanumeric) for \'"+caption+"\'.","","error","");
+    showSwal("Please enter valid value (alphanumeric) for \'"+caption+"\'.","","error","",field_name);
 }

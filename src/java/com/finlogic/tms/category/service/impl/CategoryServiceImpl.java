@@ -40,9 +40,9 @@ public class CategoryServiceImpl implements CategoryService {
     }
     
     @Override
-    public List getCategoryData(String categoryId) throws Exception
+    public List getCategoryData(CategoryFormBean categoryFormBean) throws Exception
     {
-        return categoryDatamanager.getCategoryData(categoryId) ;
+        return categoryDatamanager.getCategoryData(categoryFormBean) ;
     }
     
     @Override
@@ -52,8 +52,14 @@ public class CategoryServiceImpl implements CategoryService {
     }
     
     @Override
-    public int deleteCategoryDetail(String categoryId) throws Exception
+    public int deleteCategoryDetail(CategoryFormBean categoryFormBean) throws Exception
     {
-        return categoryDatamanager.deleteCategoryDetail(categoryId);
+        return categoryDatamanager.deleteCategoryDetail(categoryFormBean);
+    }
+
+    @Override
+    public List getCategoryNameList(CategoryFormBean categoryFormBean) throws Exception 
+    {
+        return categoryDatamanager.getCategoryNameList(categoryFormBean);
     }
 }

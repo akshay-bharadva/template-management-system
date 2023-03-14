@@ -126,7 +126,7 @@
                             <button type="button" class="btn btn-primary" onclick="addTmptype()">Save Type</button>
                         </c:otherwise>
                     </c:choose>
-                    <button type="reset" class="btn btn-primary">Reset</button>
+                            <button type="reset" class="btn btn-primary" <c:if test="${task eq 'View' || task eq 'Delete'}">style="display:none"</c:if>>Reset</button>
                 </div>
             </form>
         </div>

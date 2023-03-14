@@ -14,7 +14,7 @@ public class CategoryFormBean {
     public String cmbTemplateType;
     public String category;
     public String chkActive;
-    public String userCode = "34add156-90aa-11ec-aced-005056b76057";
+    public String userCode;
     public String categoryID;
     
     //---------For Filter -------------
@@ -70,7 +70,7 @@ public class CategoryFormBean {
 
     @Override
     public String toString() {
-        return "CategoryFormBean{" + "cmbTemplateType=" + cmbTemplateType + ", category=" + category + ", chkActive=" + chkActive + ", userCode=" + userCode + ", categoryID=" + categoryID + ", cmbFilterType=" + cmbFilterType + '}';
+        return "CategoryFormBean{" + "cmbTemplateType=" + cmbTemplateType + ", category=" + category + ", chkActive=" + chkActive + ", categoryID=" + categoryID + ", cmbFilterType=" + cmbFilterType + '}';
     }
     
     

@@ -11,6 +11,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Recover Password</title>
         <%@include file="../cdn/cdn.jsp"%>
+        <link rel="stylesheet" href="css/custom/login.css" />
     </head>
     <body>
         <c:if test="${Action eq 'recoverpassword'}">

@@ -11,16 +11,25 @@ package com.finlogic.tms.template.bean;
  */
 public class TemplateFormBean {
     
-    private String hdnTemplateType;
-    private String hdnTemplateCategory;
+    private String hdnTemplateId;
     private String cmbTemplateType;
-    private String txtCategory;
+    private String categorysel;
     private String txtSubject;
     private String txtBody;
     private String chkActive;
+    private String isdefaultTemplate;
+    private String usercode;
     
     //---------For Filter -------------
     private String cmbFilterType;
+
+    public String getUsercode() {
+        return usercode;
+    }
+
+    public void setUsercode(String usercode) {
+        this.usercode = usercode;
+    }
 
     public String getCmbFilterType() {
         return cmbFilterType;
@@ -34,32 +43,24 @@ public class TemplateFormBean {
         return cmbTemplateType;
     }
 
-    public String getHdnTemplateType() {
-        return hdnTemplateType;
+    public String getHdnTemplateId() {
+        return hdnTemplateId;
     }
 
-    public void setHdnTemplateType(String hdnTemplateType) {
-        this.hdnTemplateType = hdnTemplateType;
-    }
-
-    public String getHdnTemplateCategory() {
-        return hdnTemplateCategory;
-    }
-
-    public void setHdnTemplateCategory(String hdnTemplateCategory) {
-        this.hdnTemplateCategory = hdnTemplateCategory;
+    public void setHdnTemplateId(String hdnTemplateId) {
+        this.hdnTemplateId = hdnTemplateId;
     }
 
     public void setCmbTemplateType(String cmbTemplateType) {
         this.cmbTemplateType = cmbTemplateType;
     }
 
-    public String getTxtCategory() {
-        return txtCategory;
+    public String getCategorysel() {
+        return categorysel;
     }
 
-    public void setTxtCategory(String txtCategory) {
-        this.txtCategory = txtCategory;
+    public void setCategorysel(String categorysel) {
+        this.categorysel = categorysel;
     }
 
     public String getTxtSubject() {
@@ -84,5 +85,13 @@ public class TemplateFormBean {
 
     public void setChkActive(String chkActive) {
         this.chkActive = chkActive;
+    }
+
+    public String getIsdefaultTemplate() {
+        return isdefaultTemplate;
+    }
+
+    public void setIsdefaultTemplate(String isdefaultTemplate) {
+        this.isdefaultTemplate = isdefaultTemplate;
     }
 }

@@ -11,6 +11,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Sign In</title>
         <%@include file="../cdn/cdn.jsp"%>
+        <link rel="stylesheet" href="css/custom/login.css" />
     </head>
     <body>
             <div id="load"></div>
@@ -22,7 +23,7 @@
                                 <div
                                     class="icon d-flex align-items-center justify-content-center"
                                     >
-                                    <span class="fa fa-user-o"></span>
+                                    <i class="fa-solid fa-user text-white"></i>
                                 </div>
                                 <h3 class="text-center mb-4">Sign In</h3>
                                 <form id="SignInForm" name="SignIn" method="POST" class="login-form">

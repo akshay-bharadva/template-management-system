@@ -8,6 +8,8 @@ package com.finlogic.tms.category.controller;
 import com.finlogic.tms.category.bean.CategoryFormBean;
 import com.finlogic.tms.category.service.CategoryService;
 import com.finlogic.util.CommonMember;
+import com.finlogic.util.CommonUtil;
+import com.finlogic.util.SessionBean;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -37,10 +39,12 @@ public class CategoryController {
     }
     
     @RequestMapping(params = "cmdAction=loadAddCategory", method = {RequestMethod.GET, RequestMethod.POST})
-    public ModelAndView loadAddCategory(HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView loadAddCategory(HttpServletRequest request, HttpServletResponse response,CategoryFormBean categoryFormBean) {
         ModelAndView modelAndView = new ModelAndView("Category/addCategory");
         try {
-            CommonMember.appendLogFile("Master 1" );
+            setUserCode(request, categoryFormBean);
+            CommonMember.appendLogFile("@loadAddCategory :: usercode :: " +categoryFormBean.getUserCode());
+            modelAndView.addObject("categorylist", categoryService.getCategoryNameList(categoryFormBean));
             modelAndView.addObject("tmptypelist", categoryService.getTemplateType());
             modelAndView.addObject("Default", "0");
             
@@ -49,6 +53,25 @@ public class CategoryController {
         }
         return modelAndView;
     }
+    
+    @RequestMapping(params = "cmdAction=insertCategory", method = {RequestMethod.GET, RequestMethod.POST})
+    public ModelAndView insertCategory(HttpServletRequest request,
+            HttpServletResponse response,
+            CategoryFormBean categoryFormBean) {
+        ModelAndView modelAndView = new ModelAndView("Category/categoryajax");
+        try {
+            setUserCode(request,categoryFormBean);
+            int result = categoryService.insertCategoryDetail(categoryFormBean);
+            modelAndView.addObject("Action", "insertCategory");
+            modelAndView.addObject("Status", result);
+            
+        } catch (Exception e) {
+            CommonMember.errorHandler(e);
+        }
+        
+        return modelAndView;
+    }
+    
     @RequestMapping(params = "cmdAction=loadEditCategory", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView loadEditCategory(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView modelAndView = new ModelAndView("Category/editCategory");
@@ -87,28 +110,7 @@ public class CategoryController {
         }
         return modelAndView;
     }
-    
-    @RequestMapping(params = "cmdAction=insertCategory", method = {RequestMethod.GET, RequestMethod.POST})
-    public ModelAndView insertCategory(HttpServletRequest request,
-            HttpServletResponse response,
-            CategoryFormBean categoryFormBean) {
-        ModelAndView modelAndView = new ModelAndView("Category/categoryajax");
-        try {
-            
-            CommonMember.appendLogFile("Master 1" + categoryFormBean.toString());
-            int result = categoryService.insertCategoryDetail(categoryFormBean);
-            modelAndView.addObject("Action", "insertCategory");
-            modelAndView.addObject("Status", result);
-            CommonMember.appendLogFile("@CategoryController :: InsertCategory :: result :: " + result);
-            
-        } catch (Exception e) {
-            CommonMember.errorHandler(e);
-        }
-        
-        return modelAndView;
-    }
-    
-    
+
     @RequestMapping(params="cmdAction=showCategory" , method = {RequestMethod.GET , RequestMethod.POST})
     public ModelAndView getAllCategoryDetail(HttpServletRequest request , HttpServletResponse response , CategoryFormBean categoryFormBean)
     {
@@ -117,6 +119,7 @@ public class CategoryController {
             String crudAction = request.getParameter("action");
             String filterType = request.getParameter("filterValue");
             categoryFormBean.setCmbFilterType(filterType);
+            setUserCode(request,categoryFormBean);
             List CategoryList = categoryService.getAllCategoryDetail(categoryFormBean);
             modelAndView.addObject("Action", "viewCategory");
             modelAndView.addObject("CategoryList", CategoryList);
@@ -138,21 +141,20 @@ public class CategoryController {
         try {
             String categoryId = request.getParameter("CategoryID");
             String crudAction = request.getParameter("crudAction");
-            CommonMember.appendLogFile(categoryId);
-            List categoryList = categoryService.getCategoryData(categoryId);
+            setUserCode(request,categoryFormBean);
+            List categoryList = categoryService.getCategoryData(categoryFormBean);
             modelAndView.addObject("task", crudAction);
             modelAndView.addObject("categoryID", categoryId);
+            modelAndView.addObject("categorylist", categoryService.getAllCategoryDetail(categoryFormBean));
            if (categoryList.size() > 0) {
                 Map m = (Map) categoryList.get(0);
                 modelAndView.addObject("hdnTemplateType", m.get("TEMPLATE_TYPE_NAME"));
                 modelAndView.addObject("hdnTemplateCategory", m.get("CATEGORY_NAME"));
                 modelAndView.addObject("TMPID", m.get("TEMPLATE_TYPE_ID"));
-                //modelAndView.addObject("Type", m.get("TEMPLATE_TYPE_NAME"));
                 modelAndView.addObject("tmptypelist", categoryService.getTemplateType());
                 modelAndView.addObject("Category", m.get("CATEGORY_NAME"));
                 modelAndView.addObject("IsActive", m.get("ISACTIVE"));
-            }  
-            CommonMember.appendLogFile("@CategoryController :: getCategoryData :: categoryList :: " + categoryList);
+            }
             
         } catch (Exception ex) {
             CommonMember.errorHandler(ex);
@@ -167,11 +169,10 @@ public class CategoryController {
             CategoryFormBean categoryFormBean) {
         ModelAndView modelAndView = new ModelAndView("Category/categoryajax");
         try {
+            setUserCode(request,categoryFormBean);
             int result = categoryService.editCategoryDetail(categoryFormBean);
             modelAndView.addObject("Action", "editCategory");
-            modelAndView.addObject("Status", result);
-            CommonMember.appendLogFile("@CategoryController :: EditCategory :: result :: " + result);
-            
+            modelAndView.addObject("Status", result);            
         } catch (Exception e) {
             CommonMember.errorHandler(e);
         }
@@ -181,16 +182,17 @@ public class CategoryController {
     
     @RequestMapping(params = "cmdAction=deleteCategory", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView deleteCategory(HttpServletRequest request,
-            HttpServletResponse response) 
+            HttpServletResponse response,
+            CategoryFormBean categoryFormBean) 
     {
         ModelAndView modelAndView = new ModelAndView("Category/categoryajax");
         try {
-            String CategoryID = request.getParameter("categoryId");
-            CommonMember.appendLogFile("@CategoryController :: deleteCategory :: CategoryID :: " + CategoryID);
-            int result = categoryService.deleteCategoryDetail(CategoryID);
+            setUserCode(request,categoryFormBean);
+            CommonMember.appendLogFile("@CategoryController :: deleteCategory :: CategoryID :: " + categoryFormBean.getCategoryID());
+            int result = categoryService.deleteCategoryDetail(categoryFormBean);
             modelAndView.addObject("Action", "deleteCategory");
             modelAndView.addObject("Status", result);
-            CommonMember.appendLogFile("@CategoryController :: EditCategory :: result :: " + result);
+            CommonMember.appendLogFile("@CategoryController :: deleteCategory :: result :: " + result);
             
         } catch (Exception e) {
             CommonMember.errorHandler(e);
@@ -199,5 +201,10 @@ public class CategoryController {
         return modelAndView;
     }
     
-    
+    public void setUserCode(HttpServletRequest request,CategoryFormBean categoryFormBean)
+    {
+            SessionBean sessionBean = CommonUtil.getSessionBean(request);
+            String userCode = sessionBean.getUsercode();
+            categoryFormBean.setUserCode(userCode);
+    }
 }

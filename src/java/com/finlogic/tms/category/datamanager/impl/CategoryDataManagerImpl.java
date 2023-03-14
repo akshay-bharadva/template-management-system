@@ -13,7 +13,6 @@ import com.finlogic.util.persistence.SQLUtility;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
 //new BeanPropertySqlParameterSource(categoryFormBean)
@@ -38,6 +37,17 @@ public class CategoryDataManagerImpl implements CategoryDataManager {
 
         return sqlUtility.getList(CONNECTION_ALIAS, query.toString());
     }
+    
+    @Override
+    public List getCategoryNameList(CategoryFormBean categoryFormBean) throws Exception
+    {
+        StringBuilder query = new StringBuilder();
+        Map map = new HashMap();
+        
+        query.append("SELECT CATEGORY_NAME FROM TMS_CATEGORY_TYPE WHERE USERCODE = :USERCODE");
+        map.put("USERCODE", categoryFormBean.getUserCode());
+        return sqlUtility.getList(CONNECTION_ALIAS, query.toString(),new MapSqlParameterSource(map));
+    }
 
     @Override
     public int insertCategoryDetail(CategoryFormBean categoryFormBean) throws Exception {
@@ -50,7 +60,7 @@ public class CategoryDataManagerImpl implements CategoryDataManager {
         map.put("CATEGORY_NAME",categoryFormBean.getCategory());
         map.put("TEMPLATE_TYPE_ID", categoryFormBean.getCmbTemplateType());
         map.put("ISACTIVE",categoryFormBean.getChkActive());
-        map.put("USERCODE", categoryFormBean.getUserCode());
+        map.put("USERCODE",categoryFormBean.getUserCode());
 
         return sqlUtility.persist(CONNECTION_ALIAS, query.toString(), new MapSqlParameterSource(map));
     }
@@ -61,29 +71,28 @@ public class CategoryDataManagerImpl implements CategoryDataManager {
         StringBuilder query = new StringBuilder();
         Map map = new HashMap();
         
-        query.append("SELECT C.CATEGORY_ID,C.CATEGORY_NAME,T.TEMPLATE_TYPE_NAME,C.ENTRY_DATE FROM TMS_CATEGORY_TYPE C JOIN ");
-        query.append("TMS_TEMPLATE_TYPE T ON C.TEMPLATE_TYPE_ID = T.TEMPLATE_TYPE_ID");
+        query.append("SELECT C.CATEGORY_ID,C.CATEGORY_NAME,T.TEMPLATE_TYPE_NAME,DATE_FORMAT(C.ENTRY_DATE,'%d-%m-%Y')ENTRY_DATE FROM TMS_CATEGORY_TYPE C JOIN ");
+        query.append("TMS_TEMPLATE_TYPE T ON C.TEMPLATE_TYPE_ID = T.TEMPLATE_TYPE_ID WHERE C.USERCODE = :USERCODE");
         if(categoryFormBean.getCmbFilterType() != null && !categoryFormBean.getCmbFilterType().equals("0"))
         {
-            query.append(" WHERE T.TEMPLATE_TYPE_ID = :FILTER_TYPE");
+            query.append(" AND T.TEMPLATE_TYPE_ID = :FILTER_TYPE");
             map.put("FILTER_TYPE",categoryFormBean.getCmbFilterType());
         }
         query.append(" ORDER BY T.TEMPLATE_TYPE_NAME, C.CATEGORY_NAME");
-        CommonMember.appendLogFile("@Repository :: getAllCategoryDetail :: query :: " + query.toString());
-        CommonMember.appendLogFile("@Repository :: getAllCategoryDetail :: map :: " + map);
+        map.put("USERCODE",categoryFormBean.getUserCode());
+        CommonMember.appendLogFile("@getAllCategoryDetail : usercode : "+categoryFormBean.getUserCode());
         return sqlUtility.getList(CONNECTION_ALIAS, query.toString(),new MapSqlParameterSource(map));
     }
     
     @Override
-    public List getCategoryData(String categoryId) throws Exception {
+    public List getCategoryData(CategoryFormBean categoryFormBean) throws Exception {
         StringBuilder query = new StringBuilder();
         Map map = new HashMap();
         
-        query.append("SELECT C.TEMPLATE_TYPE_ID,C.CATEGORY_NAME,T.TEMPLATE_TYPE_NAME,C.ISACTIVE FROM TMS_CATEGORY_TYPE C JOIN TMS_TEMPLATE_TYPE T ON T.TEMPLATE_TYPE_ID = C.TEMPLATE_TYPE_ID WHERE C.CATEGORY_ID = :CATEGORY_ID");
-    
-        map.put("CATEGORY_ID", categoryId);
-        CommonMember.appendLogFile("@Repository :: getCategoryData :: query :: " + query.toString());
-        CommonMember.appendLogFile("@Repository :: getCategoryData :: map :: " + map);
+        query.append("SELECT C.TEMPLATE_TYPE_ID,C.CATEGORY_NAME,T.TEMPLATE_TYPE_NAME,C.ISACTIVE FROM TMS_CATEGORY_TYPE C JOIN TMS_TEMPLATE_TYPE T ON T.TEMPLATE_TYPE_ID = C.TEMPLATE_TYPE_ID WHERE C.CATEGORY_ID = :CATEGORY_ID AND C.USERCODE = :USERCODE");
+        map.put("CATEGORY_ID", categoryFormBean.getCategoryID());
+        map.put("USERCODE", categoryFormBean.getUserCode());
+        CommonMember.appendLogFile(categoryFormBean.getUserCode());
         return sqlUtility.getList(CONNECTION_ALIAS, query.toString(),new MapSqlParameterSource(map));
     }
     
@@ -93,26 +102,27 @@ public class CategoryDataManagerImpl implements CategoryDataManager {
         StringBuilder query = new StringBuilder();
         Map map = new HashMap();
         
-        query.append("UPDATE TMS_CATEGORY_TYPE SET TEMPLATE_TYPE_ID = :TEMPLATE_TYPE_ID,CATEGORY_NAME = :CATEGORY_NAME,ISACTIVE = :ISACTIVE,ENTRY_DATE = CURRENT_TIMESTAMP WHERE CATEGORY_ID = :CATEGORY_ID;");
+        query.append("UPDATE TMS_CATEGORY_TYPE SET TEMPLATE_TYPE_ID = :TEMPLATE_TYPE_ID,CATEGORY_NAME = :CATEGORY_NAME,ISACTIVE = :ISACTIVE,ENTRY_DATE = CURRENT_TIMESTAMP WHERE CATEGORY_ID = :CATEGORY_ID AND USERCODE = :USERCODE;");
         
         map.put("TEMPLATE_TYPE_ID", categoryFormBean.getCmbTemplateType());
         map.put("CATEGORY_NAME", categoryFormBean.getCategory());
         map.put("ISACTIVE", categoryFormBean.getChkActive());
         map.put("CATEGORY_ID", categoryFormBean.getCategoryID());
-        CommonMember.appendLogFile("@Repository :: editCategoryDetail :: query :: " + query.toString());
-        CommonMember.appendLogFile("@Repository :: editCategoryDetail :: map :: " + map);
+        map.put("USERCODE",categoryFormBean.getUserCode());
+
         return sqlUtility.persist(CONNECTION_ALIAS, query.toString(), new MapSqlParameterSource(map));
     }
     
     @Override
-    public int deleteCategoryDetail(String categoryId) throws Exception
+    public int deleteCategoryDetail(CategoryFormBean categoryFormBean) throws Exception
     {
         StringBuilder query = new StringBuilder();
         Map map = new HashMap();
         
-        query.append("DELETE FROM TMS_CATEGORY_TYPE WHERE CATEGORY_ID = :CATEGORY_ID");
+        query.append("DELETE FROM TMS_CATEGORY_TYPE WHERE CATEGORY_ID = :CATEGORY_ID AND USERCODE = :USERCODE");
         
-        map.put("CATEGORY_ID", categoryId);
+        map.put("CATEGORY_ID",categoryFormBean.getCategoryID());
+        map.put("USERCODE",categoryFormBean.getUserCode());
         
         CommonMember.appendLogFile("@Repository :: deleteCategoryDetail :: query :: " + query.toString());
         CommonMember.appendLogFile("@Repository :: deleteCategoryDetail :: map :: " + map);

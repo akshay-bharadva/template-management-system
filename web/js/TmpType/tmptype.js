@@ -5,6 +5,10 @@
  */
 
 
+function loadTemplateType()
+{
+    getSynchronousData("tmptype.fin?cmdAction=loadtmptype",'','load');
+}
 function loadAddTmpType()
 {
     getSynchronousData("tmptype.fin?cmdAction=loadaddTmptype",'','loadtmptype');
@@ -39,11 +43,11 @@ function addTmptype()
         var insertTmptypeFlag = $("#insertTmptypeStatus").val();
         if(insertTmptypeFlag > 0)
         {
-            showNotyf("Template Type Added Successfully", "success");
+            showSwalTimer("Template Type Added Successfully",TIME,"success");
         }
         else
         {
-            showNotyf("Some Problem Arise", "error");       
+            showSwalTimer("Some Problem Arise \n Try Again",TIME,"error");       
         }
         
         loadAddTmpType();
@@ -53,29 +57,33 @@ function addTmptype()
 
 function Tmptypevalidate()
 {
-    var REG_ALPHA_NUM_SPACE = /^[A-Za-z]+$/;
+    var REG_ALPHA_NUM_SPACE =  /^[a-zA-Z\s]*$/;
     var MSG_ALPHA_NUM_SPACE = "Please enter valid value for";
     
     var tmptype = $("#tmptypetxt").val().toUpperCase();
     var List = $("#typelist").val();
-    if(List.includes(tmptype) === true)
-    {
-        alert("This Template Type is Already Avaliable");
-        $("#tmptypetxt").focus();
-        return false;
-    }
+    
     if(tmptype === null || tmptype === "")
     {
-        alert("Please Enter the value for Template Type");
-        $("#tmptypetxt").focus();
+        showSwal("Please Enter the value for Template Type","","error","",'tmptypetxt');
+//        $("#tmptypetxt").focus();
         return false;
     }
-    else if(!tmptype.match(REG_ALPHA_NUM_SPACE))
+    else
     {
-        alert(MSG_ALPHA_NUM_SPACE + "Template Type.");
-        $("#tmptypetxt").focus();
-        return false;
-    }
+        if(!tmptype.match(REG_ALPHA_NUM_SPACE))
+        {
+            showSwal(MSG_ALPHA_NUM_SPACE + " Template Type.","","error","",'tmptypetxt');
+//            $("#tmptypetxt").focus();
+            return false;
+        }
+        else if(List.includes(tmptype) === true)
+        {
+            showSwal("This Template Type is Already Avaliable","","error","",'tmptypetxt');
+//            $("#tmptypetxt").focus();
+            return false;
+        }
+    } 
     return true;
 }
 
@@ -108,10 +116,10 @@ function editTmptype()
         //alert(editTmptypeFlag);
         if (editTmptypeFlag > 0)
         {
-            showNotyf("TmpType updated Successfully", "success");
+            showSwalTimer("Template Type Updated Successfully",TIME,"success");
         } else
         {
-            showNotyf("some problem arise", "error");
+            showSwalTimer("Some Problem Arise \n Try Again",TIME,"error");
         }
         loadEditTmpType('Edit');
     }
@@ -119,20 +127,21 @@ function editTmptype()
 
 function deleteTmpType()
 {
-    var TmpTypeId = $("#tmptypeID").val();
+    var deleteTmpTypefrm = document.Tmptypeform;
+    var params = getFormData(deleteTmpTypefrm);
     showConfirmSwal(
             "Are you sure you want to Delete Type?",
             "Once Deleted can't be reverted.",
             "Delete Template Type",
             () => {
-        getSynchronousData("tmptype.fin?cmdAction=deleteTmptype", 'TmptypeID=' + TmpTypeId, 'insertTmptypeFlag');
+        getSynchronousData("tmptype.fin?cmdAction=deleteTmptype", params, 'insertTmptypeFlag');
         var deleteTmptypeFlag = $("#deleteTmptypeStatus").val();
         if (deleteTmptypeFlag > 0)
         {
-            showNotyf("Template Type deleted Successfully", "success");
+            showSwalTimer("Template Type deleted Successfully",TIME,"success");
         } else
         {
-            showNotyf("some problem arise", "error");
+            showSwalTimer("Some Problem Arise \n Try Again",TIME,"error");
         }
         loadDeleteTmpType('Delete');
     }
