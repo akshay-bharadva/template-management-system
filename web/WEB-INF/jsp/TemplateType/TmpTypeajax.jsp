@@ -23,7 +23,6 @@
                 <table class="table table-striped table-hover">
                     <thead>
                         <tr>
-                            <th scope="col">#</th>
                             <th scope="col">Template Type</th>
                             <th scope="col">Entry Date</th>
                             <th scope="col">Action</th>
@@ -32,7 +31,6 @@
                     <tbody>
                         <c:forEach items="${TmptypeList}" var="list" varStatus="sr">
                             <tr>
-                                <th scope="row">${sr.index}</th>
                                 <td>${list.TEMPLATE_TYPE_NAME}</td>
                                 <td>${list.ENTRY_DATE}</td>
                                 <td>

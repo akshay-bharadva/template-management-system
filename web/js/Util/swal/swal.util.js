@@ -1,11 +1,14 @@
 // possible icons : question , error, warning, success
 
-function showSwal(title, text, icon = "success", footer = "") {
+function showSwal(title, text, icon = "success", footer = "",Id) {
     Swal.fire({
         icon,
         title,
         text,
         footer,
+    }).then(function () {
+        swal.close();
+        $('#' + Id).focus();
     });
 }
 
@@ -47,7 +50,7 @@ function showSwalCallback(title, timer, callback, icon = "success")
     callback();
 }
 
-function showSwalTimer(title, timer, icon = "success")
+function showSwalTimer(title, timer , icon = "success")
 {
     const Toast = Swal.mixin({
         toast: true,

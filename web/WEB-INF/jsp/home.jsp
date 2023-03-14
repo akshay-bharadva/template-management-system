@@ -11,6 +11,7 @@
   </head>
   <body>
       <%@include file="header.jsp" %>
+      <div id="load"></div>
       <%@include file="footer.jsp" %>
   </body>
 </html>

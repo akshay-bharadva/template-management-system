@@ -7,14 +7,23 @@
 
 function loadTemplate()
 {
-    getAsynchronousData("template.fin?cmdAction=loadTemplate", '', 'load');
+    getSynchronousData("template.fin?cmdAction=loadTemplate", '', 'load');
 }
-
 function loadAddTemplate()
 {
+    getSynchronousData("template.fin?cmdAction=loadButton", '', 'loadTemplate');
+}
+function loadAddTemplateFromScratch()
+{
     getSynchronousData("template.fin?cmdAction=loadAddTemplate", '', 'loadTemplate');
-    $("#cmbCategory").hide();
+    $("#categoryblock").hide();
     loadEditor('txtBody');
+}
+function loadAddTemplateFromDefault(action)
+{
+    $("#report").hide();
+    getSynchronousData("template.fin?cmdAction=loadDefaultTemplate", 'action=' + action, 'loadTemplate');
+    showReport("0");
 }
 function loadEditTemplate(action)
 {
@@ -37,13 +46,22 @@ function loadViewTemplate(action)
 function showReport(value)
 {
     var action = $("#action").val();
-    getSynchronousData("template.fin?cmdAction=showTemplate", "action=" + action + "&filterValue=" + value, 'report');
+    if(action === 'Default')
+    {
+        var isDefault = '1';
+        getSynchronousData("template.fin?cmdAction=showDefaultTemplate", "action=" + action + "&filterValue=" + value + "&isDefault=" + isDefault, 'report');   
+    }
+    else
+    {
+        getSynchronousData("template.fin?cmdAction=showTemplate", "action=" + action + "&filterValue=" + value, 'report');
+    }
+    
     $("#report").show();
 }
 
-function showTemplateData(templateType, category, crudAction)
+function showTemplateData(templateId, crudAction)
 {
-    getSynchronousData("template.fin?cmdAction=getupdateTemplateData", "templateType=" + templateType + "&category=" + category + "&crudAction=" + crudAction, 'loadTemplate');
+    getSynchronousData("template.fin?cmdAction=getupdateTemplateData", "templateId=" + templateId  + "&crudAction=" + crudAction, 'loadTemplate');
     loadEditor('txtBody');
 }
 
@@ -58,10 +76,12 @@ function editTemplate()
         var editTemplateFlag = $("#editTemplateStatus").val();
         if (editTemplateFlag > 0)
         {
-            showNotyf("Template updated Successfully", "success");
+
+            showSwalTimer("Template updated Successfully",TIME,"success");
         } else
         {
-            showNotyf("some problem arise", "error");
+            showSwalTimer("some problem arise",TIME,"error");
+
         }
         loadEditTemplate('Edit');
     }
@@ -81,10 +101,12 @@ function deleteTemplate()
                 var deleteTemplateFlag = $("#deleteTemplateStatus").val();
                 if (deleteTemplateFlag > 0)
                 {
-                    showNotyf("Template deleted Successfully", "success");
+                    showSwalTimer("Template deleted Successfully",TIME,"success");
+
                 } else
                 {
-                    showNotyf("some problem arise", "error");
+                    showSwalTimer("some problem arise",TIME,"error");
+
                 }
                 loadDeleteTemplate('Delete');
             }         
@@ -94,15 +116,8 @@ function deleteTemplate()
 
 function loadTemplateType(value)
 {
-    if (value === 'Letter')
-    {
-        $("#cmbCategory").show();
-        $("#categorytxt").hide();
-    } else
-    {
-        $("#cmbCategory").hide();
-        $("#categorytxt").show();
-    }
+    getSynchronousData("template.fin?cmdAction=loadCategory","templateType="+value,"categorysel");
+    $("#categoryblock").show();
 }
 
 function addTemplate()
@@ -118,10 +133,12 @@ function addTemplate()
         var insertTemplateFlag = $("#insertTemplateStatus").val();
         if (insertTemplateFlag > 0)
         {
-            showNotyf("Template Added Successfully", "success");
+
+            showSwalTimer("Template Added Successfully",TIME,"success");
         } else
         {
-            showNotyf("some problem arise", "error");
+
+            showSwalTimer("some problem arise",TIME,"error");
         }
         loadAddTemplate();
     }
@@ -134,62 +151,42 @@ function validateTemplate()
     var templateType = $("#cmbTemplateType").val();
     if (templateType === null || templateType === "0")
     {
-        alert("Please make selection for Template Type.");
-        $("#cmbTemplateType").focus();
+        showSwal("Please make selection for Template Type.","","error","","cmbTemplateType");
         return false;
     }
-    if (templateType === 'Letter')
-    {
         var selCategory = $("#categorysel").val();
         if (selCategory === null || selCategory === "0")
         {
-
-            alert("Please make selection for Category.");
-            $("#categorysel").focus();
+            showSwal("Please make selection for Category.","","error","","categorysel");
             return false;
-        } else
-        {
-            $("#txtCategory").val(selCategory);
-        }
-    } else
-    {
-        var txtCategory = Trim($("#txtCategory").val());
-
-        if (txtCategory === "")
-        {
-            alert("Please enter value for Category.");
-            $("#txtCategory").focus();
-            return false;
-        }
-        if (txtCategory !== "")
-        {
-            if (!txtCategory.match(REG_ALPHA_NUM_SPACE))
-            {
-                alert(MSG_ALPHA_NUM_SPACE + "Category.");
-                $("#txtCategory").focus();
-                return false;
-            }
-        }
-    }
-    if (templateType === 'Email' || templateType === 'Letter')
-    {
-        var txtSubject = Trim($("#txtSubject").val());
+        } 
+        var txtSubject = $("#txtSubject").val().trim();
         if (txtSubject === "")
         {
-            alert("Please enter value for Subject.");
-            $("#txtSubject").focus();
+            showSwal("Please enter value for Subject.","","error","","txtSubject");
+            
             return false;
         }
-    }
+
     var body = CKEDITOR.getData();
     if (body.trim() === "")
     {
-        alert("Please enter value for Template Body");
-        $("#txtBody").focus();
+        showSwal("Please enter value for Template Body","","error","","body");
         return false;
     }
 
     return true;
+}
+
+function formReset()
+{
+    $("#cmbTemplateType").val("0");
+    $("#categorysel").val("0");
+//    $("#categoryblock").hide();
+    $("#txtSubject").val("");
+    CKEDITOR.setData("");
+    $('input:checkbox').removeAttr('checked');
+
 }
 
 /***
@@ -203,13 +200,13 @@ function loadEditor(id) {
                 CKEDITOR = editor;
             })
             .catch((error) => {
-                showNotyf("Cannot Load Editor!", "error");
+                showSwalTimer("Cannot Load Editor!",TIME,"error");
             });
 }
 
 function destroyEditor(id) {
     CKEDITOR.destroy().catch((error) => {
-        showNotyf("Some Error Occured, Please Try Again Later!", "error");
+        showSwalTimer("Some Error Occured, Please Try Again Later!", TIME , "error");
     });
 }
 
@@ -217,5 +214,7 @@ function getTemplateData(formObj) {
     destroyEditor('body');
     return getFormData(formObj)
 }
+
+
 
 

@@ -55,7 +55,7 @@ public class SessionFilter implements Filter {
             }
             
             HttpSession session = httpRequest.getSession(false);
-
+            
             if (session != null && session.getAttribute("sessionInfo") != null) {
                 sessionInfo = (SessionBean)session.getAttribute("sessionInfo");
                 CommonMember.appendLogFile("USERCODE :- " + sessionInfo.getUsercode() +" | USERNAME :- " + sessionInfo.getUsername() + " | USERTYPE :- " + sessionInfo.getUsertype());

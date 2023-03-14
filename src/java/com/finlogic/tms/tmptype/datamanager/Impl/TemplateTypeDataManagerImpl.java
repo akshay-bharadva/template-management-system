@@ -48,15 +48,16 @@ public class TemplateTypeDataManagerImpl implements TemplateTypeDataManager {
     }
     
     @Override
-    public List gettmptypeData(String TmptypeID) throws Exception
+    public List gettmptypeData(TmptypeFormBean tmptypeFormBean) throws Exception
     {
         StringBuilder query = new StringBuilder();
         Map map = new HashMap();
-        query.append("SELECT TEMPLATE_TYPE_ID,TEMPLATE_TYPE_NAME,ISACTIVE FROM TMS_TEMPLATE_TYPE WHERE TEMPLATE_TYPE_ID = :TEMPLATE_TYPE_ID");
+        query.append("SELECT TEMPLATE_TYPE_ID,TEMPLATE_TYPE_NAME,ISACTIVE FROM TMS_TEMPLATE_TYPE WHERE TEMPLATE_TYPE_ID = :TEMPLATE_TYPE_ID AND USERCODE = :USERCODE");
         
-        map.put("TEMPLATE_TYPE_ID",TmptypeID);
-        CommonMember.appendLogFile("@Repository :: gettmptypeData :: map :: "+map);
-        CommonMember.appendLogFile("@Repository :: gettmptypeData :: query :: "+ query);
+        map.put("TEMPLATE_TYPE_ID",tmptypeFormBean.getTmptypeID());
+        map.put("USERCODE",tmptypeFormBean.getUserCode());
+//        CommonMember.appendLogFile("@Repository :: gettmptypeData :: map :: "+map);
+
         return sqlUtility.getList(CONNECTION_ALIAS, query.toString(),new MapSqlParameterSource(map));
     }
     @Override
@@ -70,8 +71,8 @@ public class TemplateTypeDataManagerImpl implements TemplateTypeDataManager {
         map.put("TEMPLATE_TYPE_NAME",tmptypeFormBean.getTemplateType().toUpperCase());
         map.put("ISACTIVE",tmptypeFormBean.getChkActive());
         map.put("USERCODE",tmptypeFormBean.getUserCode());
-        CommonMember.appendLogFile("@Repository :: insertTmpType :: map :: "+map);
-        CommonMember.appendLogFile("@Repository :: insertTmpType :: query :: "+ query);
+//        CommonMember.appendLogFile("@Repository :: insertTmpType :: map :: "+map);
+
         return sqlUtility.persist(CONNECTION_ALIAS, query.toString(),new MapSqlParameterSource(map));
     }
     
@@ -81,15 +82,17 @@ public class TemplateTypeDataManagerImpl implements TemplateTypeDataManager {
         StringBuilder query = new StringBuilder();
         Map map = new HashMap();
         
-        query.append("SELECT TEMPLATE_TYPE_ID,TEMPLATE_TYPE_NAME,ENTRY_DATE FROM TMS_TEMPLATE_TYPE");
+        query.append("SELECT TEMPLATE_TYPE_ID,TEMPLATE_TYPE_NAME,DATE_FORMAT(ENTRY_DATE,'%d-%m-%Y')ENTRY_DATE FROM TMS_TEMPLATE_TYPE WHERE USERCODE = :USERCODE ");
         if(tmptypeFormBean.getCmbFilterType() != null && !tmptypeFormBean.getCmbFilterType().equals("0"))
         {
-            query.append(" WHERE TEMPLATE_TYPE_ID = :FILTER_TYPE");
+            query.append("AND TEMPLATE_TYPE_ID = :FILTER_TYPE");
             map.put("FILTER_TYPE",tmptypeFormBean.getCmbFilterType());
         }
         query.append(" ORDER BY TEMPLATE_TYPE_NAME");
-        CommonMember.appendLogFile("@repository :: getAllTmpType :: query : "+query.toString());
-        CommonMember.appendLogFile("@repository :: getAllTmpType :: filtertype : "+tmptypeFormBean.getCmbFilterType());
+        map.put("USERCODE", tmptypeFormBean.getUserCode());
+
+//        CommonMember.appendLogFile("@repository :: getAllTmpType :: filtertype : "+ tmptypeFormBean.getCmbFilterType());
+//        CommonMember.appendLogFile("@repository :: getAllTmpType :: map : "+ map);
         return sqlUtility.getList(CONNECTION_ALIAS, query.toString(),new MapSqlParameterSource(map));
     }
     
@@ -100,27 +103,28 @@ public class TemplateTypeDataManagerImpl implements TemplateTypeDataManager {
         Map map = new HashMap();
         
         query.append("UPDATE TMS_TEMPLATE_TYPE SET TEMPLATE_TYPE_NAME = :TEMPLATE_TYPE_NAME,ISACTIVE = :ISACTIVE,");
-        query.append("ENTRY_DATE = CURRENT_TIMESTAMP,USERCODE = :USERCODE WHERE TEMPLATE_TYPE_ID = :TEMPLATE_TYPE_ID; ");
+        query.append("ENTRY_DATE = CURRENT_TIMESTAMP WHERE TEMPLATE_TYPE_ID = :TEMPLATE_TYPE_ID AND USERCODE = :USERCODE; ");
         
         map.put("TEMPLATE_TYPE_NAME", tmptypeFormBean.getTemplateType().toUpperCase());
         map.put("ISACTIVE", tmptypeFormBean.getChkActive());
         map.put("USERCODE", tmptypeFormBean.getUserCode());
         map.put("TEMPLATE_TYPE_ID", tmptypeFormBean.getTmptypeID());
         
-        CommonMember.appendLogFile("@repository :: editTmpType :: query : "+query.toString());
-        CommonMember.appendLogFile("@repository :: editTmpType :: map : "+ map);
+//        CommonMember.appendLogFile("@repository :: editTmpType :: map : "+ map);
         return sqlUtility.persist(CONNECTION_ALIAS, query.toString(),new MapSqlParameterSource(map));
     }
     
     @Override
-    public int deleteTmpType(String TmptypeId) throws Exception
+    public int deleteTmpType(TmptypeFormBean tmptypeFormBean) throws Exception
     {
         StringBuilder query = new StringBuilder();
         Map map = new HashMap();
         
-        query.append("DELETE FROM TMS_TEMPLATE_TYPE WHERE TEMPLATE_TYPE_ID = :TEMPLATE_TYPE_ID");
+        query.append("DELETE FROM TMS_TEMPLATE_TYPE WHERE TEMPLATE_TYPE_ID = :TEMPLATE_TYPE_ID AND USERCODE = :USERCODE");
         
-        map.put("TEMPLATE_TYPE_ID", TmptypeId);
+        map.put("TEMPLATE_TYPE_ID", tmptypeFormBean.getTmptypeID());
+        map.put("USERCODE", tmptypeFormBean.getUserCode());
+//        CommonMember.appendLogFile("@repository :: deleteTmpType :: map : "+ map);
         return sqlUtility.persist(CONNECTION_ALIAS, query.toString(),new MapSqlParameterSource(map));
     }
 

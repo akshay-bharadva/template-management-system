@@ -16,14 +16,16 @@ import java.util.List;
 public interface CategoryDataManager {
 
     public List getTemplateType() throws Exception;
+    
+    public List getCategoryNameList(CategoryFormBean categoryFormBean) throws Exception;
 
     public int insertCategoryDetail(CategoryFormBean categoryFormBean) throws Exception;
     
     public List getAllCategoryDetail(CategoryFormBean categoryFormBean) throws Exception ;
     
-    public List getCategoryData(String categoryId) throws Exception;
+    public List getCategoryData(CategoryFormBean categoryFormBean) throws Exception;
     
     public int editCategoryDetail(CategoryFormBean categoryFormBean) throws Exception;
     
-    public int deleteCategoryDetail(String categoryId) throws Exception;
+    public int deleteCategoryDetail(CategoryFormBean categoryFormBean) throws Exception;
 }

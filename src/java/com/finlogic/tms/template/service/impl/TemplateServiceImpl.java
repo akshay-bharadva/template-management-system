@@ -49,28 +49,44 @@ public class TemplateServiceImpl implements TemplateService {
     }
     
     @Override
-    public List getUpdateData(String templateType, String category) throws Exception {
-        return templateDatamanager.getUpdateData(templateType, category);
+    public List getUpdateData(String templateId, String usercode) throws Exception {
+        return templateDatamanager.getUpdateData(templateId, usercode);
     }
     
     @Override
     public TemplateEntityBean convertFormBeanToEntityBean(TemplateFormBean templateFormBean) {
         TemplateEntityBean templateEntityBean = new TemplateEntityBean();
         
-        templateEntityBean.setHdnTemplateCategory(templateFormBean.getHdnTemplateCategory());
-        templateEntityBean.setHdnTemplateType(templateFormBean.getHdnTemplateType());
+        templateEntityBean.setHdnTemplateId(templateFormBean.getHdnTemplateId());
         templateEntityBean.setTemplateType(templateFormBean.getCmbTemplateType());
-        templateEntityBean.setCategory(templateFormBean.getTxtCategory());
+        templateEntityBean.setCategory(templateFormBean.getCategorysel());
         templateEntityBean.setTitle(templateFormBean.getTxtSubject());
         templateEntityBean.setBody(templateFormBean.getTxtBody());
         templateEntityBean.setIsActive(templateFormBean.getChkActive());
-        
+        templateEntityBean.setUsercode(templateFormBean.getUsercode());
         //-------------------------For Filter-----------------------------------
         templateEntityBean.setFilterType(templateFormBean.getCmbFilterType());
+        //-------------------------For default-----------------------------------
+        templateEntityBean.setIsdefaultTemplate(templateFormBean.getIsdefaultTemplate());
         return templateEntityBean;
     }
-
-
-
+    
+    @Override
+    public List getTemplateTye() throws Exception
+    {
+        return templateDatamanager.getTemplateTye();
+    }
+    
+    @Override
+    public List getCategory(String templateType) throws Exception
+    {
+        return templateDatamanager.getCategory(templateType);
+    }
+    
+    @Override
+    public List getDefaultTemplateDetail(TemplateFormBean templateFormBean) throws Exception {
+        TemplateEntityBean templateEntityBean = convertFormBeanToEntityBean(templateFormBean);
+        return templateDatamanager.getDefaultTemplateDetail(templateEntityBean);
+    }
 
 }

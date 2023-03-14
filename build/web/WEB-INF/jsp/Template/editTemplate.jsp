@@ -19,6 +19,9 @@
             <c:if test="${action eq 'View'}">
                 View
             </c:if>
+            <c:if test="${action eq 'Default'}">
+                Default
+            </c:if>
             Template
         </div>
         <%-- Edit  --%>
@@ -28,9 +31,9 @@
                 <div class="col-5">
                     <select class="form-select" id="cmbFilterType" name="cmbFilterType" onchange="showReport(this.value)">
                         <option selected="" value="0">All Templates</option>
-                        <option value="Letter">Letter</option>
-                        <option value="Email">Email</option>
-                        <option value="SMS">Message</option>
+                        <c:forEach items="${templateType}" var="i">
+                            <option value="${i.TEMPLATE_TYPE_ID}">${i.TEMPLATE_TYPE_NAME}</option>
+                        </c:forEach>
                     </select>
                 </div>
             </div> 

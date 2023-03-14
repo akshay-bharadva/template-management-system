@@ -5,9 +5,12 @@
  */
 package com.finlogic.tms.tmptype.controller;
 
+import com.finlogic.tms.category.bean.CategoryFormBean;
 import com.finlogic.tms.tmptype.bean.TmptypeFormBean;
 import com.finlogic.tms.tmptype.service.TemplateTypeService;
 import com.finlogic.util.CommonMember;
+import com.finlogic.util.CommonUtil;
+import com.finlogic.util.SessionBean;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -56,11 +59,9 @@ public class TemplatetypeController {
         ModelAndView modelAndView = new ModelAndView("TemplateType/editTmpType");
         try {
             String action = request.getParameter("Action");
-            modelAndView.addObject("TypeList", templateTypeService.GetTypeNameList());
             modelAndView.addObject("tmptypeList", templateTypeService.GetTypeList());
             modelAndView.addObject("action", action);
-            CommonMember.appendLogFile("@TemplatetypeController :: loadeditTmptype :: action :: " + action);
-            CommonMember.appendLogFile("@TemplatetypeController :: loadeditTmptype :: action :: " + action);
+            
         } catch (Exception ex) {
             CommonMember.errorHandler(ex);
         }
@@ -104,6 +105,7 @@ public class TemplatetypeController {
     {
         ModelAndView modelAndView = new ModelAndView("TemplateType/TmpTypeajax");
         try {
+            setUserCode(request,tmptypeFormBean);
             int result = templateTypeService.insertTmpType(tmptypeFormBean);
             modelAndView.addObject("Action","insertTmptype");
             modelAndView.addObject("Status", result);
@@ -115,13 +117,14 @@ public class TemplatetypeController {
     }
  
     @RequestMapping(params = "cmdAction=showTmptype",method = {RequestMethod.GET,RequestMethod.POST})
-    public ModelAndView showTmptype(HttpServletRequest request,HttpServletResponse response,TmptypeFormBean tmptypeFormBean)
+    public ModelAndView getAllTmptype(HttpServletRequest request,HttpServletResponse response,TmptypeFormBean tmptypeFormBean)
     {
         ModelAndView modelAndView = new ModelAndView("TemplateType/TmpTypeajax");
         try {
             String crudAction = request.getParameter("action");
             String filterType = request.getParameter("filterValue");
             tmptypeFormBean.setCmbFilterType(filterType);
+            setUserCode(request,tmptypeFormBean);
             List TmptypeList = templateTypeService.getAllTmpType(tmptypeFormBean);
             modelAndView.addObject("Action", "viewTmptype");
             modelAndView.addObject("TmptypeList", TmptypeList);
@@ -141,10 +144,11 @@ public class TemplatetypeController {
         try{
             String TmptypeID = request.getParameter("TmptypeID");
             String crudAction = request.getParameter("crudAction");
-            CommonMember.appendLogFile(TmptypeID);
-            List TmptypeList = templateTypeService.gettmptypeData(TmptypeID);
+            setUserCode(request,tmptypeFormBean);
+            List TmptypeList = templateTypeService.gettmptypeData(tmptypeFormBean);
             modelAndView.addObject("task", crudAction);
             modelAndView.addObject("tmptypeId", TmptypeID);
+            modelAndView.addObject("TypeList", templateTypeService.GetTypeNameList());
            if (TmptypeList.size() > 0) {
                 Map m = (Map) TmptypeList.get(0);
                 modelAndView.addObject("TemplateType", m.get("TEMPLATE_TYPE_NAME"));
@@ -164,6 +168,7 @@ public class TemplatetypeController {
     {
         ModelAndView modelAndView = new ModelAndView("TemplateType/TmpTypeajax");
         try {
+            setUserCode(request,tmptypeFormBean);
             int result = templateTypeService.editTmpType(tmptypeFormBean);
             modelAndView.addObject("Action", "editTmptype");
             modelAndView.addObject("Status", result);
@@ -176,12 +181,13 @@ public class TemplatetypeController {
     }
     
     @RequestMapping(params = "cmdAction=deleteTmptype",method = {RequestMethod.GET,RequestMethod.POST})
-    public ModelAndView deleteTmptype(HttpServletRequest request,HttpServletResponse response)
+    public ModelAndView deleteTmptype(HttpServletRequest request,HttpServletResponse response,TmptypeFormBean tmptypeFormBean)
     {
         ModelAndView modelAndView = new ModelAndView("TemplateType/TmpTypeajax");
         try{
-            String TmptypeId = request.getParameter("TmptypeID");
-            int result = templateTypeService.deleteTmpType(TmptypeId);
+//            String TmptypeId = request.getParameter("TmptypeID");
+            setUserCode(request,tmptypeFormBean);
+            int result = templateTypeService.deleteTmpType(tmptypeFormBean);
             modelAndView.addObject("Action", "deleteTmptype");
             modelAndView.addObject("Status", result);
             CommonMember.appendLogFile("@TemplatetypeController :: deleteTmptype :: result :: " + result);
@@ -190,5 +196,12 @@ public class TemplatetypeController {
             CommonMember.errorHandler(ex);
         }
         return modelAndView;
+    }
+    
+    public void setUserCode(HttpServletRequest request,TmptypeFormBean tmptypeFormBean)
+    {
+            SessionBean sessionBean = CommonUtil.getSessionBean(request);
+            String userCode = sessionBean.getUsercode();
+            tmptypeFormBean.setUserCode(userCode);
     }
 }

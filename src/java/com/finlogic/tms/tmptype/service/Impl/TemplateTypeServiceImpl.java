@@ -35,9 +35,9 @@ public class TemplateTypeServiceImpl implements TemplateTypeService{
     }
     
     @Override
-    public List gettmptypeData(String TmptypeID) throws Exception
+    public List gettmptypeData(TmptypeFormBean tmptypeFormBean) throws Exception
     {
-        return templateTypeDataManager.gettmptypeData(TmptypeID);
+        return templateTypeDataManager.gettmptypeData(tmptypeFormBean);
     }
     
     @Override
@@ -59,8 +59,8 @@ public class TemplateTypeServiceImpl implements TemplateTypeService{
     }
 
     @Override
-    public int deleteTmpType(String TmptypeId) throws Exception 
+    public int deleteTmpType(TmptypeFormBean tmptypeFormBean) throws Exception 
     {
-        return templateTypeDataManager.deleteTmpType(TmptypeId);
+        return templateTypeDataManager.deleteTmpType(tmptypeFormBean);
     }
 }

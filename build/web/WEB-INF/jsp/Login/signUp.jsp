@@ -12,6 +12,7 @@
         <title>Register</title>
         <meta charset="utf-8" />
         <%@include file="../cdn/cdn.jsp" %>
+        <link rel="stylesheet" href="css/custom/login.css" />
     </head>
     <body>
         <%--<c:if test="${Action eq 'signup'}">--%>
@@ -26,7 +27,7 @@
                                 <div
                                     class="icon d-flex align-items-center justify-content-center"
                                     >
-                                    <span class="fa fa-user-o"></span>
+                                    <i class="fa-solid fa-user text-white"></i>
                                 </div>
                                 <h3 class="text-center mb-4">Register</h3>
                                 <form id="RegisterForm" name="Register" method="POST" class="login-form">

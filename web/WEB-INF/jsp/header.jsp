@@ -1,6 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%@include file="cdn/cdn.jsp" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
@@ -29,12 +30,15 @@
                             Master
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="master">
-                            <li><a class="dropdown-item" href="tmptype.fin?cmdAction=loadtmptype" >Template Type</a></li>
-                            <li><a class="dropdown-item" href="template.fin?cmdAction=loadTemplate">Template Master</a></li>
+
+                            <c:if test="${USERTYPE eq 'ADMIN'}">
+                                <li><a class="dropdown-item" href="javascript:void(0)" onclick="loadTemplateType()">Template Type</a></li>
+                            </c:if>
+                            <li><a class="dropdown-item" href="javascript:void(0)" onclick="loadCategory()">Category Master</a></li>
+                            <li><a class="dropdown-item" onclick ="loadTemplate()" href="javascript:void(0)">Template Master</a></li> <!--"template.fin?cmdAction=loadTemplate" -->
                             <!--onclick="loadTemplate()"-->
                             <li><a class="dropdown-item">User Master</a></li>
                             <li><a class="dropdown-item">History Master</a></li>
-                            <li><a class="dropdown-item" href="category.fin?cmdAction=loadCategory">Category Master</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">

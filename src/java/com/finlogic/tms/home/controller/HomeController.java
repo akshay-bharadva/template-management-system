@@ -5,6 +5,8 @@
  */
 package com.finlogic.tms.home.controller;
 
+import com.finlogic.util.CommonUtil;
+import com.finlogic.util.SessionBean;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
@@ -23,6 +25,9 @@ public class HomeController {
     @RequestMapping(params = "cmdAction=loadHome", method = {RequestMethod.POST, RequestMethod.GET})
     public ModelAndView loadHome(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView modelAndView = new ModelAndView("home");
+        SessionBean sessionBean = CommonUtil.getSessionBean(request);
+        modelAndView.addObject("USERCODE", sessionBean.getUsercode());
+        modelAndView.addObject("USERTYPE", sessionBean.getUsertype());
         return modelAndView;
     }
 }

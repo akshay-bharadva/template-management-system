@@ -22,11 +22,11 @@ public interface TemplateTypeDataManager {
     
     public List getAllTmpType(TmptypeFormBean tmptypeFormBean) throws Exception;
     
-    public List gettmptypeData(String TmptypeID) throws Exception;
+    public List gettmptypeData(TmptypeFormBean tmptypeFormBean) throws Exception;
     
     public int editTmpType(TmptypeFormBean tmptypeFormBean) throws Exception;
     
-    public int deleteTmpType(String TmptypeId) throws Exception;
+    public int deleteTmpType(TmptypeFormBean tmptypeFormBean) throws Exception;
 
 
 }
