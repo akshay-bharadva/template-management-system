@@ -33,7 +33,7 @@
                                 >
                             </div>
                             <div class="col-md-9">
-                                <select class="form-select" id="cmbTemplateType" name="cmbTemplateType" onchange="loadTemplateType(this.value)" <c:if test="${task eq 'Delete' || task eq 'View' || task eq 'Edit'}">disabled</c:if>>
+                                <select class="form-select" id="cmbTemplateType" name="cmbTemplateType" onchange="loadTemplateTypeList(this.value)" <c:if test="${task eq 'Delete' || task eq 'View' || task eq 'Edit'}">disabled</c:if>>
                                             <option selected value="0" disabled>
                                                 Select Template Type
                                             </option>
@@ -101,7 +101,7 @@
                             </div>
                             <div class="col-md-9">
                                 <c:choose>
-                                    <c:when test="${Default eq '0'}">
+                                    <c:when test="${IsActive eq '0'}">
                                         <div class="form-check form-check-inline">
                                             <input
                                                 class="form-check-input"

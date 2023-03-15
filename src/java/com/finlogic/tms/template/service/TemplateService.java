@@ -22,6 +22,6 @@ public interface TemplateService {
     public List getUpdateData(String templateId , String usercode) throws Exception;
     public TemplateEntityBean convertFormBeanToEntityBean(TemplateFormBean objFrmBean);
     public List getTemplateTye() throws Exception;
-    public List getCategory(String templateType) throws Exception;
+    public List getCategory(String templateType,String usercode) throws Exception;
     public List getDefaultTemplateDetail(TemplateFormBean templateFormBean) throws Exception;
 }

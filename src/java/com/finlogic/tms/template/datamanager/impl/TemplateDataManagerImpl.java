@@ -141,7 +141,7 @@ public class TemplateDataManagerImpl implements TemplateDataManager {
         StringBuilder query = new StringBuilder();
         Map map = new HashMap();
         
-        query.append("SELECT T.TEMPLATE_ID AS TEMPLATE_ID , TT.TEMPLATE_TYPE_ID AS TEMPLATE_TYPE_ID , CT.CATEGORY_ID AS CATEGORY_ID, CT.CATEGORY_NAME AS CATEGORY_NAME ,T.TITLE,T.BODY, T.ISDEFAULT AS ISDEFAULT FROM TMS_TEMPLATE T ");
+        query.append("SELECT T.TEMPLATE_ID AS TEMPLATE_ID , TT.TEMPLATE_TYPE_ID AS TEMPLATE_TYPE_ID , CT.CATEGORY_ID AS CATEGORY_ID, CT.CATEGORY_NAME AS CATEGORY_NAME ,T.TITLE,T.BODY,T.ISACTIVE, T.ISDEFAULT AS ISDEFAULT FROM TMS_TEMPLATE T ");
         query.append(" INNER JOIN TMS_TEMPLATE_TYPE TT ON TT.TEMPLATE_TYPE_ID = T.TEMPLATE_TYPE ");
         query.append(" INNER JOIN TMS_CATEGORY_TYPE CT ON CT.CATEGORY_ID = T.CATEGORY ");
 //        query.append(" INNER JOIN TMS_USER_LOGIN UL ON UL.USERCODE = T.USERCODE ");
@@ -154,6 +154,7 @@ public class TemplateDataManagerImpl implements TemplateDataManager {
         return sqlUtility.getList(CONNECTION_ALIAS, query.toString(), new MapSqlParameterSource(map));
     }
 
+  
     @Override
     public List getTemplateTye() throws Exception {
         
@@ -165,22 +166,25 @@ public class TemplateDataManagerImpl implements TemplateDataManager {
         return sqlUtility.getList(CONNECTION_ALIAS, query.toString());
     }
     
+    
     @Override
-    public List getCategory(String templateType) throws Exception {
+    public List getCategory(String templateType , String usercode) throws Exception {
 
         StringBuilder query = new StringBuilder();
         Map map = new HashMap();
 
         query.append("SELECT CATEGORY_ID,CATEGORY_NAME FROM TMS_CATEGORY_TYPE ");
-        query.append(" WHERE TEMPLATE_TYPE_ID = :TEMPLATE_TYPE_ID");
+        query.append(" WHERE TEMPLATE_TYPE_ID = :TEMPLATE_TYPE_ID AND USERCODE = :USERCODE");
 
         map.put("TEMPLATE_TYPE_ID", templateType);
+        map.put("USERCODE", usercode);
 
 //        CommonMember.appendLogFile("@Repository :: getCategory :: query :: " + query.toString());
 //        CommonMember.appendLogFile("@Repository :: getCategory :: map :: " + map);
         return sqlUtility.getList(CONNECTION_ALIAS, query.toString(), new MapSqlParameterSource(map));
 
     }
+    
     
     @Override
     public List getDefaultTemplateDetail(TemplateEntityBean templateEntityBean) throws Exception {
@@ -191,7 +195,7 @@ public class TemplateDataManagerImpl implements TemplateDataManager {
         query.append(" INNER JOIN TMS_TEMPLATE_TYPE TT ON TT.TEMPLATE_TYPE_ID = T.TEMPLATE_TYPE");
         query.append(" INNER JOIN TMS_CATEGORY_TYPE CT ON CT.CATEGORY_ID = T.CATEGORY");
         query.append(" INNER JOIN TMS_USER_LOGIN UL ON UL.USERCODE = T.USERCODE");
-        query.append(" WHERE ISDEFAULT = :ISDEFAULT");
+        query.append(" WHERE T.ISDEFAULT = :ISDEFAULT");
         
         if(templateEntityBean.getFilterType() != null && !templateEntityBean.getFilterType().equals("0"))
         {

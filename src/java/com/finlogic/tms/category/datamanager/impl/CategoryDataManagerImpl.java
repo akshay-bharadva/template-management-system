@@ -54,14 +54,22 @@ public class CategoryDataManagerImpl implements CategoryDataManager {
         StringBuilder query = new StringBuilder();
         Map map = new HashMap();
         CommonMember.appendLogFile("Master 3 " + categoryFormBean.getCategory());
-        query.append("INSERT INTO TMS_CATEGORY_TYPE (CATEGORY_NAME,TEMPLATE_TYPE_ID,ISACTIVE,ENTRY_DATE,USERCODE) VALUES");
-        query.append(" (:CATEGORY_NAME,:TEMPLATE_TYPE_ID,:ISACTIVE,CURRENT_TIMESTAMP,:USERCODE) ");
+        query.append("INSERT INTO TMS_CATEGORY_TYPE (CATEGORY_NAME,TEMPLATE_TYPE_ID,ISACTIVE,ENTRY_DATE,USERCODE,ISDEFAULT) VALUES");
+        query.append(" (:CATEGORY_NAME,:TEMPLATE_TYPE_ID,:ISACTIVE,CURRENT_TIMESTAMP,:USERCODE,:ISDEFAULT) ");
         
         map.put("CATEGORY_NAME",categoryFormBean.getCategory());
         map.put("TEMPLATE_TYPE_ID", categoryFormBean.getCmbTemplateType());
         map.put("ISACTIVE",categoryFormBean.getChkActive());
         map.put("USERCODE",categoryFormBean.getUserCode());
 
+        if(categoryFormBean.getIsdefaultTemplate() != null && !categoryFormBean.getIsdefaultTemplate().equals(""))
+        {
+            map.put("ISDEFAULT",categoryFormBean.getIsdefaultTemplate());
+        }
+        else
+        {
+            map.put("ISDEFAULT","0");
+        }
         return sqlUtility.persist(CONNECTION_ALIAS, query.toString(), new MapSqlParameterSource(map));
     }
     
@@ -89,7 +97,7 @@ public class CategoryDataManagerImpl implements CategoryDataManager {
         StringBuilder query = new StringBuilder();
         Map map = new HashMap();
         
-        query.append("SELECT C.TEMPLATE_TYPE_ID,C.CATEGORY_NAME,T.TEMPLATE_TYPE_NAME,C.ISACTIVE FROM TMS_CATEGORY_TYPE C JOIN TMS_TEMPLATE_TYPE T ON T.TEMPLATE_TYPE_ID = C.TEMPLATE_TYPE_ID WHERE C.CATEGORY_ID = :CATEGORY_ID AND C.USERCODE = :USERCODE");
+        query.append("SELECT C.TEMPLATE_TYPE_ID,C.CATEGORY_NAME,T.TEMPLATE_TYPE_NAME,C.ISACTIVE ,C.ISDEFAULT FROM TMS_CATEGORY_TYPE C JOIN TMS_TEMPLATE_TYPE T ON T.TEMPLATE_TYPE_ID = C.TEMPLATE_TYPE_ID WHERE C.CATEGORY_ID = :CATEGORY_ID AND C.USERCODE = :USERCODE");
         map.put("CATEGORY_ID", categoryFormBean.getCategoryID());
         map.put("USERCODE", categoryFormBean.getUserCode());
         CommonMember.appendLogFile(categoryFormBean.getUserCode());

@@ -126,8 +126,18 @@ public class TemplatetypeController {
             tmptypeFormBean.setCmbFilterType(filterType);
             setUserCode(request,tmptypeFormBean);
             List TmptypeList = templateTypeService.getAllTmpType(tmptypeFormBean);
+            
+            if(!TmptypeList.isEmpty())
+            {
+                modelAndView.addObject("TmptypeList", TmptypeList);
+                modelAndView.addObject("status", "1");
+            }
+            else
+            {
+                modelAndView.addObject("status", "0");
+            }
+            
             modelAndView.addObject("Action", "viewTmptype");
-            modelAndView.addObject("TmptypeList", TmptypeList);
             modelAndView.addObject("crudAction", crudAction);
             CommonMember.appendLogFile("@TemplatetypeController :: showTmptype :: crudAction : "+crudAction);
             CommonMember.appendLogFile("@TemplatetypeController :: showTmptype :: filtertype : "+filterType);

@@ -66,7 +66,7 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="utility">
                             <li>
-                                <a class="dropdown-item">Upload Placeholder's Data</a>
+                                <a class="dropdown-item" onclick ="loadPlaceholder()" href="javascript:void(0)">Upload Placeholder's Data</a>
                             </li>
                         </ul>
                     </li>

@@ -42,5 +42,6 @@
 <script src="js/Template/template.js"></script>
 <script src="js/Category/category.js"></script>
 <script src="js/TmpType/tmptype.js"></script>
+<script src="js/Placeholder/placeholder.js"></script>
 <script src="js/Template/ck-editor-inject.js"></script>
     

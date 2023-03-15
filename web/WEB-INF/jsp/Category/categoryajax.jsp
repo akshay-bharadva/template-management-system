@@ -19,46 +19,57 @@
         <input type="hidden" name="deleteCategoryStatus" id="deleteCategoryStatus" value="${Status}">
     </c:when>
     <c:when test="${Action eq 'viewCategory'}">
-        <div id="filterTemplate">
-            <div class="table-responsive">
-                <table class="table table-striped table-hover">
-                    <thead>
-                        <tr>
-                            <th scope="col">Template Type</th>
-                            <th scope="col">Category Name</th>
-                            <th scope="col">Entry Date</th>
-                            <th scope="col">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <c:forEach items="${CategoryList}" var="list" varStatus="sr">
+        <c:if test="${status eq '1'}">
+            <div id="filterTemplate">
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead>
                             <tr>
-                                <td>${list.TEMPLATE_TYPE_NAME}</td>
-                                <td>${list.CATEGORY_NAME}</td>
-                                <td>${list.ENTRY_DATE}</td>
-                                <td>
-                                    <c:if test="${crudAction eq 'View'}">
-                                        <button type="button" class="btn btn-sm btn-primary w-100" onclick="showCategoryData(${list.CATEGORY_ID}, '${crudAction}')">
-                                            View <i class="fa-solid fa-arrow-right"></i>
-                                        </button>
-                                    </c:if>
-                                    <c:if test="${crudAction eq 'Edit'}">
-                                        <button type="button" class="btn btn-sm btn-warning w-100" onclick="showCategoryData(${list.CATEGORY_ID}, '${crudAction}')">
-                                            Edit <i class="fa-solid fa-pen-to-square"></i>
-                                        </button>
-                                    </c:if>
-                                    <c:if test="${crudAction eq 'Delete'}">
-                                        <button type="button" class="btn btn-sm btn-danger w-100" onclick="showCategoryData(${list.CATEGORY_ID}, '${crudAction}')">
-                                            Delete <i class="far fa-trash-alt"></i>
-                                        </button>
-                                    </c:if>
-                                </td>
-                            </tr>  
-                        </c:forEach>
-                    </tbody>  
-                </table>
+                                <th scope="col">Template Type</th>
+                                <th scope="col">Category Name</th>
+                                <th scope="col">Entry Date</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach items="${CategoryList}" var="list">
+                                <tr>
+                                    <td>${list.TEMPLATE_TYPE_NAME}</td>
+                                    <td>${list.CATEGORY_NAME}</td>
+                                    <td>${list.ENTRY_DATE}</td>
+                                    <td>
+                                        <c:if test="${crudAction eq 'View'}">
+                                            <button type="button" class="btn btn-sm btn-primary w-100" onclick="showCategoryData(${list.CATEGORY_ID}, '${crudAction}')">
+                                                View <i class="fa-solid fa-arrow-right"></i>
+                                            </button>
+                                        </c:if>
+                                        <c:if test="${crudAction eq 'Edit'}">
+                                            <button type="button" class="btn btn-sm btn-warning w-100" onclick="showCategoryData(${list.CATEGORY_ID}, '${crudAction}')">
+                                                Edit <i class="fa-solid fa-pen-to-square"></i>
+                                            </button>
+                                        </c:if>
+                                        <c:if test="${crudAction eq 'Delete'}">
+                                            <button type="button" class="btn btn-sm btn-danger w-100" onclick="showCategoryData(${list.CATEGORY_ID}, '${crudAction}')">
+                                                Delete <i class="far fa-trash-alt"></i>
+                                            </button>
+                                        </c:if>
+                                    </td>
+                                </tr>  
+                            </c:forEach>
+                        </tbody>  
+                    </table>
 
+                </div>
             </div>
-        </div>
+        </c:if>
+        <c:if test="${status eq '0'}">
+            <div class="card">
+                <div class="card-body">
+                    <blockquote class="blockquote mb-0">
+                        <p align="center">NO RECORD FOUND</p>
+                    </blockquote>
+                </div>
+            </div>
+        </c:if>
     </c:when>
 </c:choose>

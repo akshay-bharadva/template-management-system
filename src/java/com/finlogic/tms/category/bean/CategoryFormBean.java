@@ -16,6 +16,7 @@ public class CategoryFormBean {
     public String chkActive;
     public String userCode;
     public String categoryID;
+    public String isdefaultTemplate;
     
     //---------For Filter -------------
     private String cmbFilterType;
@@ -68,6 +69,14 @@ public class CategoryFormBean {
         this.categoryID = categoryID;
     }
 
+    public String getIsdefaultTemplate() {
+        return isdefaultTemplate;
+    }
+
+    public void setIsdefaultTemplate(String isdefaultTemplate) {
+        this.isdefaultTemplate = isdefaultTemplate;
+    }
+    
     @Override
     public String toString() {
         return "CategoryFormBean{" + "cmbTemplateType=" + cmbTemplateType + ", category=" + category + ", chkActive=" + chkActive + ", categoryID=" + categoryID + ", cmbFilterType=" + cmbFilterType + '}';
