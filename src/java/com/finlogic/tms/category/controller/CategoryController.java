@@ -46,7 +46,7 @@ public class CategoryController {
             CommonMember.appendLogFile("@loadAddCategory :: usercode :: " +categoryFormBean.getUserCode());
             modelAndView.addObject("categorylist", categoryService.getCategoryNameList(categoryFormBean));
             modelAndView.addObject("tmptypelist", categoryService.getTemplateType());
-            modelAndView.addObject("Default", "0");
+            modelAndView.addObject("USERTYPE", getUserType(request));
             
         } catch (Exception ex) {
             CommonMember.errorHandler(ex);
@@ -55,9 +55,7 @@ public class CategoryController {
     }
     
     @RequestMapping(params = "cmdAction=insertCategory", method = {RequestMethod.GET, RequestMethod.POST})
-    public ModelAndView insertCategory(HttpServletRequest request,
-            HttpServletResponse response,
-            CategoryFormBean categoryFormBean) {
+    public ModelAndView insertCategory(HttpServletRequest request,HttpServletResponse response,CategoryFormBean categoryFormBean) {
         ModelAndView modelAndView = new ModelAndView("Category/categoryajax");
         try {
             setUserCode(request,categoryFormBean);
@@ -121,8 +119,16 @@ public class CategoryController {
             categoryFormBean.setCmbFilterType(filterType);
             setUserCode(request,categoryFormBean);
             List CategoryList = categoryService.getAllCategoryDetail(categoryFormBean);
+            if(!CategoryList.isEmpty())
+            {
+                modelAndView.addObject("CategoryList", CategoryList);
+                modelAndView.addObject("status", "1");
+            }
+            else
+            {
+                modelAndView.addObject("status", "0");                
+            }
             modelAndView.addObject("Action", "viewCategory");
-            modelAndView.addObject("CategoryList", CategoryList);
             modelAndView.addObject("crudAction", crudAction);
             CommonMember.appendLogFile("@CategoryController :: getAllCategoryDetail :: CategoryList :: " + CategoryList + " :: filterType :: " + filterType);
             
@@ -133,9 +139,7 @@ public class CategoryController {
     }
     
     @RequestMapping(params = "cmdAction=getCategoryData", method = {RequestMethod.GET, RequestMethod.POST})
-    public ModelAndView getCategoryData(HttpServletRequest request,
-            HttpServletResponse response,
-            CategoryFormBean categoryFormBean)
+    public ModelAndView getCategoryData(HttpServletRequest request,HttpServletResponse response,CategoryFormBean categoryFormBean)
     {
         ModelAndView modelAndView = new ModelAndView("Category/addCategory");
         try {
@@ -154,6 +158,8 @@ public class CategoryController {
                 modelAndView.addObject("tmptypelist", categoryService.getTemplateType());
                 modelAndView.addObject("Category", m.get("CATEGORY_NAME"));
                 modelAndView.addObject("IsActive", m.get("ISACTIVE"));
+                modelAndView.addObject("defaultTemplate",m.get("ISDEFAULT"));
+                modelAndView.addObject("USERTYPE", getUserType(request));
             }
             
         } catch (Exception ex) {
@@ -207,4 +213,11 @@ public class CategoryController {
             String userCode = sessionBean.getUsercode();
             categoryFormBean.setUserCode(userCode);
     }
+    
+    public String getUserType(HttpServletRequest request)
+    {
+        SessionBean sessionBean = CommonUtil.getSessionBean(request);
+        return sessionBean.getUsertype();
+    }
+    
 }

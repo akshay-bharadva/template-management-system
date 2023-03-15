@@ -78,9 +78,9 @@ public class TemplateServiceImpl implements TemplateService {
     }
     
     @Override
-    public List getCategory(String templateType) throws Exception
+    public List getCategory(String templateType, String usercode) throws Exception
     {
-        return templateDatamanager.getCategory(templateType);
+        return templateDatamanager.getCategory(templateType, usercode);
     }
     
     @Override

@@ -218,7 +218,7 @@ public class TemplateController {
                 modelAndView.addObject("CategoryName", m.get("CATEGORY_NAME"));
                 modelAndView.addObject("Subject", m.get("TITLE"));
                 modelAndView.addObject("Body", m.get("BODY"));
-                modelAndView.addObject("Default", m.get("ISACTIVE"));
+                modelAndView.addObject("IsActive", m.get("ISACTIVE"));
                 modelAndView.addObject("defaultTemplate", m.get("ISDEFAULT"));
             }  
 //            CommonMember.appendLogFile("@TemplateController :: getupdateTemplateData :: TemplateList :: " + templateList + " :: templateId :: " + templateId + " :: usercode :: " + usercode);
@@ -234,9 +234,19 @@ public class TemplateController {
 
         try {
             String templateType = request.getParameter("templateType");
-            List categoryList = templateService.getCategory(templateType);
+            SessionBean sessionBean = CommonUtil.getSessionBean(request);
+            List categoryList = templateService.getCategory(templateType , sessionBean.getUsercode());
+            if(!categoryList.isEmpty())
+            {
+                modelAndView.addObject("categoryList", categoryList);
+                modelAndView.addObject("status", "1");
+            }
+            else
+            {
+                modelAndView.addObject("status", "0");
+            }
             modelAndView.addObject("Action", "category");
-            modelAndView.addObject("categoryList", categoryList);
+            
             
         } catch (Exception ex) {
 

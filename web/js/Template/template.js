@@ -114,7 +114,7 @@ function deleteTemplate()
     loadEditor('txtBody');   
 }
 
-function loadTemplateType(value)
+function loadTemplateTypeList(value)
 {
     getSynchronousData("template.fin?cmdAction=loadCategory","templateType="+value,"categorysel");
     $("#categoryblock").show();

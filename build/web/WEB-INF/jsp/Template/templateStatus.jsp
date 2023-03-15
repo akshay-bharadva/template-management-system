@@ -23,7 +23,6 @@
                     <table class="table table-striped table-hover">
                         <thead>
                             <tr>
-                                <th scope="col">#</th>
                                 <th scope="col">Template Type</th>
                                 <th scope="col">Template Category</th>
                                 <th scope="col">Subject</th>
@@ -32,9 +31,8 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <c:forEach items="${templateList}" var="i" varStatus="sr">
+                            <c:forEach items="${templateList}" var="i">
                                 <tr>
-                                    <th scope="row">${sr.index}</th>
                                     <td>${i.TEMPLATE_TYPE}</td>
                                     <td>${i.CATEGORY}</td>
                                     <td>${i.TITLE}</td>
@@ -81,9 +79,20 @@
     </c:when>
     <c:when test="${Action eq 'category'}">
         <option selected value="0" disabled>Select Category</option>
-        <c:forEach items="${categoryList}" var="i">
-            <option value="${i.CATEGORY_ID}">${i.CATEGORY_NAME}</option>
-        </c:forEach>
+        <c:if test="${status eq '1'}">
+            <c:forEach items="${categoryList}" var="i">
+                <option value="${i.CATEGORY_ID}">${i.CATEGORY_NAME}</option>
+            </c:forEach>
+        </c:if>
+        <c:if test="${status eq '0'}">
+            <div class="card">
+                <div class="card-body">
+                    <blockquote class="blockquote mb-0">
+                        <option disabled>NO RECORD FOUND</option>
+                    </blockquote>
+                </div>
+            </div>
+        </c:if>
     </c:when>
     <c:when test="${Action eq 'defaultTemplate'}">
             <button type="button" class="btn btn-success" onclick="loadAddTemplateFromDefault('Default')">From Default Template</button>

@@ -124,7 +124,21 @@
                                 </c:choose>
                             </div>
                         </div>
-                    </div>
+                    </div>        
+                    <c:if test="${USERTYPE eq 'ADMIN'}">
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label for="active" class="form-label" <c:if test="${task eq 'Delete' || task eq 'View'}">disabled</c:if>>Is Default?</label>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-check form-check-inline">
+                                        <input type="checkbox" name="isdefaultTemplate" id="isdefaultTemplate" value="1" <c:if test="${defaultTemplate eq '1'}">checked</c:if> <c:if test="${task eq 'Delete' || task eq 'View'}">disabled</c:if>>
+                                    </div>
+                                </div>
+                            </div>          
+                        </div>
+                    </c:if>         
                 </div>
                 <div id="insertCategoryFlag"></div>
                 <!-- Row End -->
