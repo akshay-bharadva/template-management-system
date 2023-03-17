@@ -43,5 +43,9 @@
 <script src="js/Category/category.js"></script>
 <script src="js/TmpType/tmptype.js"></script>
 <script src="js/Placeholder/placeholder.js"></script>
+<script src="js/Placeholder/table-sortable.js"></script>
 <script src="js/Template/ck-editor-inject.js"></script>
+<script src="js/Profile/profile.js"></script>
     
+<%--date - picker request --%>
+<script src="http://test.njindiainvest.com/finlibrary/resource/validate_date.js"></script>

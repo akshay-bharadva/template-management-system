@@ -143,4 +143,13 @@ public class LoginController {
         }
         return modelAndView;
     }
+    
+    @RequestMapping(params = "cmdAction=logoutUser" , method = {RequestMethod.POST , RequestMethod.GET})
+    public ModelAndView Logout(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView modelAndView = new ModelAndView("logout");
+        SessionBean sessionBean = (SessionBean) request.getSession().getAttribute("sessionBean");
+        request.getSession().invalidate();
+        sessionBean = null;
+        return modelAndView;
+    }
 }

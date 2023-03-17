@@ -5,7 +5,6 @@
  */
 package com.finlogic.tms.tmptype.controller;
 
-import com.finlogic.tms.category.bean.CategoryFormBean;
 import com.finlogic.tms.tmptype.bean.TmptypeFormBean;
 import com.finlogic.tms.tmptype.service.TemplateTypeService;
 import com.finlogic.util.CommonMember;
@@ -13,8 +12,6 @@ import com.finlogic.util.CommonUtil;
 import com.finlogic.util.SessionBean;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;

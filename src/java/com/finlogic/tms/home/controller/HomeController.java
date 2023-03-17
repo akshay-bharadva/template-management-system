@@ -28,6 +28,7 @@ public class HomeController {
         SessionBean sessionBean = CommonUtil.getSessionBean(request);
         modelAndView.addObject("USERCODE", sessionBean.getUsercode());
         modelAndView.addObject("USERTYPE", sessionBean.getUsertype());
+        modelAndView.addObject("USERNAME", sessionBean.getUsername());
         return modelAndView;
     }
 }

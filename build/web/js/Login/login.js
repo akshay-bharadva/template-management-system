@@ -151,3 +151,8 @@ function validatePassword()
         }
     }
 }
+
+function logoutUser()
+{
+    window.open("login.fin?cmdAction=logoutUser","_self");
+}

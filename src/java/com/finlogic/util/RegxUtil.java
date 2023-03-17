@@ -6,7 +6,11 @@
 package com.finlogic.util;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.springframework.stereotype.Service;
@@ -41,16 +45,32 @@ public class RegxUtil {
         Pattern p = Pattern.compile(REGEX);
         Matcher m = p.matcher(input);   // get a matcher object
 
-        List<String> placeholderList = new ArrayList();
-
+          Set<String> placeholderSet = new LinkedHashSet<>();  
         while (m.find()) {
             String placeholder = input.substring(m.start(), m.end());
             placeholder = placeholder.substring(2, placeholder.length() - 2);
             placeholder = placeholder.replace("_", " ");
-            placeholderList.add(placeholder);
+            placeholderSet.add(placeholder);
+        }
+        List<String> placeholderList = new ArrayList(placeholderSet);
+        return placeholderList;
+
+    }
+    
+    public String regx(HashMap<String, String> data,String input) {
+        
+        Pattern p = Pattern.compile(REGEX);
+        Matcher m = p.matcher(input);
+
+        String replacedStringHtml = input;
+
+        while (m.find()) {
+            String placeholder = input.substring(m.start(), m.end());
+            replacedStringHtml = replacedStringHtml.replace(placeholder, (CharSequence) data.get(placeholder));
         }
 
-        return placeholderList;
+        System.out.println(replacedStringHtml);
+        return replacedStringHtml;
 
     }
 }
