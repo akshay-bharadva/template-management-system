@@ -37,5 +37,21 @@ public class CommonUtil {
     {
         return "/opt/application_storage/storage_box/tms/excelsheets/uploadedFile/";
     }
+     
+    public static String errorFilePath()
+    {
+        return "/opt/application_storage/storage_box/tms/excelsheets/error/";
+    }
+    
+    public static String pdfFilePath()
+    {
+        return "/opt/application_storage/storage_box/tms/excelsheets/error/pdf";
+    }
 
+    public static String getUserCode(HttpServletRequest request) {
+        SessionBean sessionBean = CommonUtil.getSessionBean(request);
+        return sessionBean.getUsercode();
+    }
+    
+    
 }

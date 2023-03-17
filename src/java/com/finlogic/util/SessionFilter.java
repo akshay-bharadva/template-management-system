@@ -46,7 +46,7 @@ public class SessionFilter implements Filter {
 
             String url = httpRequest.getRequestURI().substring(httpRequest.getRequestURI().lastIndexOf("/") + 1);
 
-            CommonMember.appendLogFile("This log is from Filter");
+//            CommonMember.appendLogFile("This log is from Filter");
             CommonMember.appendLogFile(url);
 
             if (url.equals("index.fin") || url.equals("login.fin")) {

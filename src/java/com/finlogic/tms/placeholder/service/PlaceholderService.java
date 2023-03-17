@@ -6,6 +6,7 @@
 package com.finlogic.tms.placeholder.service;
 
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  *
@@ -20,4 +21,20 @@ public interface PlaceholderService{
     public List categoryList(String templateType , String usercode) throws Exception;
     
     public List specificTemplateData(String templateId,String usercode) throws Exception;
-}
+    
+    public int insertGeneratedExcelFileData(String usercode, String fileName, String body , int noOfPlaceholder , String placeholderList , String templateId) throws Exception;
+    
+    public List getGenerationIdFileName(String templateId) throws Exception;
+    
+    public int insertDownloadedExcelFileData(String usercode, String fileName, String generationId) throws Exception;
+    
+    public int insertUploadedExcelFileData(String usercode, String fileName , String data , String generationId) throws Exception;
+    
+    public List getImportedData(String usercode) throws Exception;
+    
+    public List getDataForSpecificUploadId(String usercode , String uploadId) throws Exception;
+    
+    public int pdfGenerationImpl(HttpServletRequest request) throws Exception;
+    
+    public List getPdfGenerationFileData(String usercode) throws Exception; 
+} 
