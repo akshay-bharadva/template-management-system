@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-const TIME = 3000;
+const TIME = 1500;
 function loadSignUp()
 {
     window.open("login.fin?cmdAction=loadSignUp", "_self");
