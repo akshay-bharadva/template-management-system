@@ -89,4 +89,14 @@ public class TemplateServiceImpl implements TemplateService {
         return templateDatamanager.getDefaultTemplateDetail(templateEntityBean);
     }
 
+    @Override
+    public int TemplateCount() throws Exception {
+        return templateDatamanager.TemplateCount();
+    }
+
+    @Override
+    public int DefaultCount() throws Exception {
+        return templateDatamanager.DefaultCount();
+    }
+
 }

@@ -29,6 +29,22 @@ public class CategoryDataManagerImpl implements CategoryDataManager {
     private final SQLTranUtility sqlTranUtility = new SQLTranUtility();
 
     @Override
+    public int CategoryCount() throws Exception {
+        StringBuilder query = new StringBuilder();
+        query.append("SELECT COUNT(*) FROM TMS_CATEGORY_TYPE WHERE ISDEFAULT = 0;");
+
+        return sqlUtility.getIntValue(CONNECTION_ALIAS, query.toString());
+    }
+
+    @Override
+    public int DefaultCount() throws Exception {
+        StringBuilder query = new StringBuilder();
+        query.append("SELECT COUNT(*) FROM TMS_CATEGORY_TYPE WHERE ISDEFAULT = 1;");
+
+        return sqlUtility.getIntValue(CONNECTION_ALIAS, query.toString());
+    }
+
+    @Override
     public List getTemplateType() throws Exception {
         StringBuilder query = new StringBuilder();
         //Map map = new HashMap();

@@ -23,5 +23,11 @@ public interface LoginService {
     public int checkEmailExist(String email) throws Exception;
     
     public int checkUserNameExist(String userName) throws Exception;
+
+    public int getLoginHitCount(LoginFormBean loginFormBean) throws Exception;
+
+    public int addToHistory(LoginFormBean loginFormBean) throws Exception;
+
+    public int updateHistory(LoginFormBean loginFormBean, int counthits) throws Exception;
 }
 

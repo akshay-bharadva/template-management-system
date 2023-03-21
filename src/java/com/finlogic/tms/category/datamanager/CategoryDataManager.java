@@ -15,6 +15,10 @@ import java.util.List;
  */
 public interface CategoryDataManager {
 
+    public int CategoryCount() throws Exception;
+
+    public int DefaultCount() throws Exception;
+    
     public List getTemplateType() throws Exception;
     
     public List getCategoryNameList(CategoryFormBean categoryFormBean) throws Exception;

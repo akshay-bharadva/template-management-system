@@ -99,7 +99,9 @@ public class LoginController {
                     loginFormBean.setUserCode(Usercode);
                     loginFormBean.setUserType(Type);
                 }
-
+                int counthits = loginService.getLoginHitCount(loginFormBean);
+                // CommonMember.appendLogFile("LoginController :: counthits : " + counthits);
+                loginService.updateHistory(loginFormBean, counthits);
                 HttpSession session = request.getSession(true);
 
                 SessionBean sessionInfo = CommonUtil.getSessionBean(request);
@@ -144,7 +146,7 @@ public class LoginController {
         return modelAndView;
     }
     
-    @RequestMapping(params = "cmdAction=logoutUser" , method = {RequestMethod.GET })
+    @RequestMapping(params = "cmdAction=logoutUser" , method = {RequestMethod.POST , RequestMethod.GET})
     public ModelAndView Logout(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView modelAndView = new ModelAndView("logout");
         SessionBean sessionBean = (SessionBean) request.getSession().getAttribute("sessionBean");
