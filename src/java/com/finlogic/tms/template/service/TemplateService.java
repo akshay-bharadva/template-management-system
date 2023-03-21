@@ -24,4 +24,6 @@ public interface TemplateService {
     public List getTemplateTye() throws Exception;
     public List getCategory(String templateType,String usercode) throws Exception;
     public List getDefaultTemplateDetail(TemplateFormBean templateFormBean) throws Exception;
+    public int TemplateCount() throws Exception;
+    public int DefaultCount() throws Exception;
 }

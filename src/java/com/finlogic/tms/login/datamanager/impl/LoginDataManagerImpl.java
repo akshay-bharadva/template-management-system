@@ -46,6 +46,7 @@ public class LoginDataManagerImpl implements LoginDataManager{
         return sqlUtility.persist(CONNECTION_ALIAS, query.toString(), new MapSqlParameterSource(map));
     }
 
+
     @Override
     public int verifyUser(LoginFormBean loginFormBean) throws Exception {
         StringBuilder query = new StringBuilder();
@@ -113,6 +114,40 @@ public class LoginDataManagerImpl implements LoginDataManager{
         CommonMember.appendLogFile("@Repository :: CheckUserName :: map :- " + map);
         
         return sqlUtility.getIntValue(CONNECTION_ALIAS, query.toString(), new MapSqlParameterSource(map));
+    }
+    @Override
+    public int getLoginHitCount(LoginFormBean loginFormBean) throws Exception {
+        StringBuilder query = new StringBuilder();
+        Map map = new HashMap();
+
+        query.append("SELECT LOGIN_HITS FROM TMS_USER_HISTORY_MAST WHERE USERCODE = :USERCODE");
+        map.put("USERCODE", loginFormBean.getUserCode());
+
+        return sqlUtility.getIntValue(CONNECTION_ALIAS, query.toString(), new MapSqlParameterSource(map));
+    }
+
+    @Override
+    public int addToHistory(LoginFormBean loginFormBean) throws Exception {
+        StringBuilder query = new StringBuilder();
+        Map map = new HashMap();
+
+        query.append("INSERT INTO TMS_USER_HISTORY_MAST(USERCODE,LAST_LOGIN) VALUES (:USERCODE,CURRENT_TIMESTAMP);");
+        map.put("USERCODE", loginFormBean.getUserCode());
+        
+        return sqlUtility.persist(CONNECTION_ALIAS, query.toString(), new MapSqlParameterSource(map));
+    }
+
+    @Override
+    public int updateHistory(LoginFormBean loginFormBean, int counthits) throws Exception {
+        StringBuilder query = new StringBuilder();
+        Map map = new HashMap();
+
+        query.append("UPDATE TMS_USER_HISTORY_MAST SET LAST_LOGIN = CURRENT_TIMESTAMP,LOGIN_HITS = :LOGIN_HITS WHERE USERCODE = :USERCODE");
+
+        map.put("USERCODE", loginFormBean.getUserCode());
+        map.put("LOGIN_HITS", counthits + 1);
+
+        return sqlUtility.persist(CONNECTION_ALIAS, query.toString(), new MapSqlParameterSource(map));
     }
 }
 

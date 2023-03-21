@@ -24,6 +24,16 @@ public class CategoryServiceImpl implements CategoryService {
     CategoryDataManager categoryDatamanager;
 
     @Override
+    public int CategoryCount() throws Exception {
+        return categoryDatamanager.CategoryCount();
+    }
+
+    @Override
+    public int DefaultCount() throws Exception {
+        return categoryDatamanager.DefaultCount();
+    }
+
+    @Override
     public List getTemplateType() throws Exception {
         return categoryDatamanager.getTemplateType();
     }

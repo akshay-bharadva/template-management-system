@@ -211,5 +211,19 @@ public class TemplateDataManagerImpl implements TemplateDataManager {
         return sqlUtility.getList(CONNECTION_ALIAS, query.toString(),new MapSqlParameterSource(map));
     }
     
-    
+    @Override
+    public int TemplateCount() throws Exception {
+        StringBuilder query = new StringBuilder();
+        query.append("SELECT COUNT(*) FROM TMS_TEMPLATE WHERE ISDEFAULT = 0;");
+
+        return sqlUtility.getIntValue(CONNECTION_ALIAS, query.toString());
+    }
+
+    @Override
+    public int DefaultCount() throws Exception {
+        StringBuilder query = new StringBuilder();
+        query.append("SELECT COUNT(*) FROM TMS_TEMPLATE WHERE ISDEFAULT = 1;");
+
+        return sqlUtility.getIntValue(CONNECTION_ALIAS, query.toString());
+    }   
 }

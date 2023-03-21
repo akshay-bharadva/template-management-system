@@ -45,7 +45,7 @@ public class CommonUtil {
     
     public static String pdfFilePath()
     {
-        return "/opt/application_storage/storage_box/tms/excelsheets/pdf/";
+        return "/opt/application_storage/storage_box/tms/excelsheets/error/pdf";
     }
 
     public static String getUserCode(HttpServletRequest request) {

@@ -50,5 +50,23 @@ public class LoginServiceImpl implements LoginService{
     public int checkUserNameExist(String userName) throws Exception {
         return loginDataManager.checkUserNameExist(userName);
     }
+
+    @Override
+    public int getLoginHitCount(LoginFormBean loginFormBean) throws Exception {
+        
+        return loginDataManager.getLoginHitCount(loginFormBean);
+    }
+
+    @Override
+    public int addToHistory(LoginFormBean loginFormBean) throws Exception {
+        
+        return loginDataManager.addToHistory(loginFormBean);
+    }
+
+    @Override
+    public int updateHistory(LoginFormBean loginFormBean, int counthits) throws Exception {
+        
+        return loginDataManager.updateHistory(loginFormBean, counthits);
+    }
     
 }
