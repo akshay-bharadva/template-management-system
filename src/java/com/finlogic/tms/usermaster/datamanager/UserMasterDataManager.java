@@ -8,10 +8,7 @@ package com.finlogic.tms.usermaster.datamanager;
 import com.finlogic.tms.usermaster.bean.UserMasterFormBean;
 import java.util.List;
 
-/**
- *
- * @author njuser
- */
+
 public interface UserMasterDataManager {
 
     public List UserTypeList() throws Exception;

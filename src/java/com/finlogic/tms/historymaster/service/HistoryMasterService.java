@@ -7,10 +7,7 @@ package com.finlogic.tms.historymaster.service;
 
 import java.util.List;
 
-/**
- *
- * @author njuser
- */
+
 public interface HistoryMasterService {
 
     public List getUserHistory() throws Exception;

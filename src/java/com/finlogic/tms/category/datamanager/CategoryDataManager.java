@@ -9,10 +9,7 @@ import com.finlogic.tms.category.bean.CategoryFormBean;
 
 import java.util.List;
 
-/**
- *
- * @author njuser
- */
+
 public interface CategoryDataManager {
 
     public int CategoryCount() throws Exception;

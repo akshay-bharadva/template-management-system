@@ -5,10 +5,7 @@
  */
 package com.finlogic.tms.usermaster.bean;
 
-/**
- *
- * @author njuser
- */
+
 public class UserMasterFormBean {
 
     public String usercode;

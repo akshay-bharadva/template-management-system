@@ -18,10 +18,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
-/**
- *
- * @author njuser
- */
+
 public class SessionFilter implements Filter {
 
     @Autowired

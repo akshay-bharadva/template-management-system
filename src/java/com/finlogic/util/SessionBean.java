@@ -7,10 +7,7 @@ package com.finlogic.util;
 
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author njuser
- */
+
 public class SessionBean {
     
     private String usercode;

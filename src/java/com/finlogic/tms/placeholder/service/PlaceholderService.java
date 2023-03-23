@@ -8,10 +8,7 @@ package com.finlogic.tms.placeholder.service;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
-/**
- *
- * @author njuser
- */
+
 public interface PlaceholderService{
     
     public List templateTypeList(String usercode) throws Exception;

@@ -4,18 +4,23 @@
     Author     : njuser
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <main class="container my-4 mb-5">
     <div <c:if test="${USERTYPE eq 'USER'}">style="display: none"</c:if>>
         <div class="row">
-                <div class="col">
-                    <label>Templates </label><br>
+            <div class="col-md-6">
+                <div class="card mb-3 p-3" style="background: #cf6a87">
+                    <label>Templates </label>
                     <h3>${TemplateCount}</h3>
+                </div>
             </div>
-            <div class="col">
-                <label>Default Templates </label>
-                <h3>${DefaultCount}</h3>
+            <div class="col-md-6">
+                <div class="card mb-3 p-3" style="background: #60a3bc">
+                    <label>Default Templates </label>
+                    <h3>${DefaultCount}</h3>
+                </div>
             </div>
         </div>
     </div>

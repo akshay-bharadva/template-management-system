@@ -5,10 +5,7 @@
  */
 package com.finlogic.tms.category.bean;
 
-/**
- *
- * @author njuser
- */
+
 public class CategoryFormBean {
 
     public String cmbTemplateType;

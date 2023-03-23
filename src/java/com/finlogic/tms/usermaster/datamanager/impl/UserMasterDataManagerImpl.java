@@ -16,10 +16,7 @@ import java.util.Map;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
 
-/**
- *
- * @author njuser
- */
+
 @Repository
 public class UserMasterDataManagerImpl implements UserMasterDataManager {
 

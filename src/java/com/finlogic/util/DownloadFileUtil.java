@@ -14,10 +14,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.ServletOutputStream;
 
 
-/**
- *
- * @author njuser
- */
+
 @Service
 public class DownloadFileUtil {
     

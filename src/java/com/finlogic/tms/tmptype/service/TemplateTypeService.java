@@ -8,10 +8,7 @@ package com.finlogic.tms.tmptype.service;
 import com.finlogic.tms.tmptype.bean.TmptypeFormBean;
 import java.util.List;
 
-/**
- *
- * @author njuser
- */
+
 public interface TemplateTypeService {
     
     public List GetTypeNameList() throws Exception;

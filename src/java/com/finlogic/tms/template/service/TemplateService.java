@@ -9,10 +9,7 @@ import com.finlogic.tms.template.bean.TemplateEntityBean;
 import com.finlogic.tms.template.bean.TemplateFormBean;
 import java.util.List;
 
-/**
- *
- * @author njuser
- */
+
 public interface TemplateService {
     
     public int insertTemplateDetail(TemplateFormBean templateFormBean) throws Exception;

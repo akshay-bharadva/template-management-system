@@ -15,10 +15,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.springframework.stereotype.Service;
 
-/**
- *
- * @author njuser
- */
+
 @Service
 public class RegxUtil {
 

@@ -8,10 +8,7 @@ package com.finlogic.tms.login.service;
 import com.finlogic.tms.login.bean.LoginFormBean;
 import java.util.List;
 
-/**
- *
- * @author njuser
- */
+
 public interface LoginService {
     
     public int insertUserLoginDetail(LoginFormBean loginFormBean) throws Exception;

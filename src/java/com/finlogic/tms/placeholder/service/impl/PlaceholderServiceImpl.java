@@ -23,10 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import static org.springframework.http.converter.json.Jackson2ObjectMapperBuilder.json;
 import org.springframework.stereotype.Service;
 
-/**
- *
- * @author njuser
- */
+
 @Service(value = "PlaceholderService")
 public class PlaceholderServiceImpl implements PlaceholderService{
     

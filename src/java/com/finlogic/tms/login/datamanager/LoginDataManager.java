@@ -9,10 +9,7 @@ import com.finlogic.tms.login.bean.LoginFormBean;
 import java.util.List;
 
 
-/**
- *
- * @author njuser
- */
+
 
 public interface LoginDataManager {
     

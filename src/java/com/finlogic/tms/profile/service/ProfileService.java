@@ -9,10 +9,7 @@ import com.finlogic.tms.profile.bean.ProfileFormBean;
 import java.sql.SQLException;
 import java.util.List;
 
-/**
- *
- * @author njuser
- */
+
 public interface ProfileService {
     
     public int updateProfile(ProfileFormBean profileFormBean , String usercode) throws SQLException, ClassNotFoundException;

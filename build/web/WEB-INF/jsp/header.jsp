@@ -37,8 +37,10 @@
                             <li><a class="dropdown-item" href="javascript:void(0)" onclick="loadCategory()">Category Master</a></li>
                             <li><a class="dropdown-item" onclick ="loadTemplate()" href="javascript:void(0)">Template Master</a></li> <!--"template.fin?cmdAction=loadTemplate" -->
                             <!--onclick="loadTemplate()"-->
-                            <li><a class="dropdown-item">User Master</a></li>
-                            <li><a class="dropdown-item">History Master</a></li>
+                            <c:if test="${USERTYPE eq 'ADMIN'}">
+                                <li><a class="dropdown-item" href="javascript:void(0)" onclick="loadUserMaster()">User Master</a></li>
+                                <li><a class="dropdown-item" href="javascript:void(0)" onclick="loadHistoryMaster()">History Master</a></li>
+                            </c:if>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">

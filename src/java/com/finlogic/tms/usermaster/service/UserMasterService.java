@@ -8,10 +8,7 @@ package com.finlogic.tms.usermaster.service;
 import com.finlogic.tms.usermaster.bean.UserMasterFormBean;
 import java.util.List;
 
-/**
- *
- * @author njuser
- */
+
 public interface UserMasterService {
 
     public List UserTypeList() throws Exception;

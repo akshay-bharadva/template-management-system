@@ -8,10 +8,7 @@ package com.finlogic.tms.tmptype.datamanager;
 import com.finlogic.tms.tmptype.bean.TmptypeFormBean;
 import java.util.List;
 
-/**
- *
- * @author njuser
- */
+
 public interface TemplateTypeDataManager {
     
     public List GetTypeNameList() throws Exception;

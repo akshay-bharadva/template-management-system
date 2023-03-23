@@ -8,10 +8,7 @@ package com.finlogic.tms.template.datamanager;
 import com.finlogic.tms.template.bean.TemplateEntityBean;
 import java.util.List;
 
-/**
- *
- * @author njuser
- */
+
 public interface TemplateDataManager {
     
     public int insertTemplateDetail(TemplateEntityBean templateEntityBean) throws Exception;

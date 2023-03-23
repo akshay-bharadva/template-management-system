@@ -21,10 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-/**
- *
- * @author njuser
- */
+
 @Controller
 @RequestMapping(value="template.fin")
 public class TemplateController {
@@ -38,8 +35,12 @@ public class TemplateController {
         SessionBean sessionBean = CommonUtil.getSessionBean(request);
         try {
             modelAndView.addObject("USERTYPE", sessionBean.getUsertype());
-            modelAndView.addObject("TemplateCount", templateService.TemplateCount());
-            modelAndView.addObject("DefaultCount", templateService.DefaultCount());
+            int TemplateCount = templateService.TemplateCount();
+//            CommonMember.appendLogFile("template count:- " + TemplateCount);
+            int DefaultCount = templateService.DefaultCount();
+//            CommonMember.appendLogFile("Default count:- " + DefaultCount);
+            modelAndView.addObject("TemplateCount",TemplateCount);
+            modelAndView.addObject("DefaultCount",DefaultCount);
         } catch (Exception ex) {
             CommonMember.errorHandler(ex);
         }

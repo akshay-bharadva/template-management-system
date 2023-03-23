@@ -20,10 +20,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Component;
 
-/**
- *
- * @author njuser
- */
+
 @Component
 public class Excel {
 
