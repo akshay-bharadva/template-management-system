@@ -8,10 +8,7 @@ package com.finlogic.tms.category.service;
 import com.finlogic.tms.category.bean.CategoryFormBean;
 import java.util.List;
 
-/**
- *
- * @author njuser
- */
+
 public interface CategoryService {
 
     public int CategoryCount() throws Exception;

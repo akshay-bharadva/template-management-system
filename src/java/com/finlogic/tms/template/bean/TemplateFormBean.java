@@ -5,10 +5,7 @@
  */
 package com.finlogic.tms.template.bean;
 
-/**
- *
- * @author njuser
- */
+
 public class TemplateFormBean {
     
     private String hdnTemplateId;

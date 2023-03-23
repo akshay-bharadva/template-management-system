@@ -7,10 +7,7 @@ package com.finlogic.tms.placeholder.datamanager;
 
 import java.util.List;
 
-/**
- *
- * @author njuser
- */
+
 public interface PlaceholderDataManager {
  
     public List templateTypeList(String usercode) throws Exception;

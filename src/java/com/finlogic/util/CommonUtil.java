@@ -11,10 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
-/**
- *
- * @author njuser
- */
+
 public class CommonUtil {
 
     public static SessionBean getSessionBean(HttpServletRequest request) {
@@ -45,7 +42,7 @@ public class CommonUtil {
     
     public static String pdfFilePath()
     {
-        return "/opt/application_storage/storage_box/tms/excelsheets/error/pdf";
+        return "/opt/application_storage/storage_box/tms/excelsheets/pdf/";
     }
 
     public static String getUserCode(HttpServletRequest request) {

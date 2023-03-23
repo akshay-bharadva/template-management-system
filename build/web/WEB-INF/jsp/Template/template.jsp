@@ -4,9 +4,22 @@
     Author     : njuser
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <main class="container my-4 mb-5">
+    <div <c:if test="${USERTYPE eq 'USER'}">style="display: none"</c:if>>
+        <div class="row">
+                <div class="col">
+                    <label>Templates </label><br>
+                    <h3>${TemplateCount}</h3>
+            </div>
+            <div class="col">
+                <label>Default Templates </label>
+                <h3>${DefaultCount}</h3>
+            </div>
+        </div>
+    </div>
     <div id="breadcrumb">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">

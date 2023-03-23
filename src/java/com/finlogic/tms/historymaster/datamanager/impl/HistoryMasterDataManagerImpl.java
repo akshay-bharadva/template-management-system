@@ -11,10 +11,7 @@ import com.finlogic.util.persistence.SQLUtility;
 import java.util.List;
 import org.springframework.stereotype.Repository;
 
-/**
- *
- * @author njuser
- */
+
 @Repository
 public class HistoryMasterDataManagerImpl implements HistoryMasterDataManager {
 

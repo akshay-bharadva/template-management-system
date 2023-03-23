@@ -13,10 +13,7 @@ import org.springframework.stereotype.Repository;
 import com.finlogic.util.persistence.SQLUtility;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 
-/**
- *
- * @author njuser
- */
+
 @Repository(value = "PlaceholderDataManager")
 public class PlaceholderDataManagerImpl implements PlaceholderDataManager{
     private final String CONNECTION_ALIAS = "njindiainvest_offline";

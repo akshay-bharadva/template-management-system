@@ -10,13 +10,17 @@
 
 <main class="container my-4 mb-5">
     <div class="row">
-        <div class="col">
-            <label>Registered Users </label><br>
-            <h3>${usercount}</h3>
+        <div class="col-md-6">
+            <div class="card mb-3 p-3" style="background: #778beb">
+                <label>Registered Users </label>
+                <h3>${usercount}</h3>
+            </div>
         </div>
-        <div class="col">
-            <label>Admin </label>
-            <h3>${admincount}</h3>
+        <div class="col-md-6">
+            <div class="card mb-3 p-3" style="background: #ea8685">
+                <label>Admin </label>
+                <h3>${admincount}</h3>
+            </div>
         </div>
     </div>
     <div id="breadcrumb">

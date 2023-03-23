@@ -5,10 +5,7 @@
  */
 package com.finlogic.tms.tmptype.bean;
 
-/**
- *
- * @author njuser
- */
+
 public class TmptypeFormBean {
     
     public String tmptypeID;

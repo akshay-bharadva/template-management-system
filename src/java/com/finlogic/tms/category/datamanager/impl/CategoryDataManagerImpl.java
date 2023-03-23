@@ -16,10 +16,7 @@ import java.util.Map;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
 //new BeanPropertySqlParameterSource(categoryFormBean)
-/**
- *
- * @author njuser
- */
+
 @Repository(value = "CategoryDataManager")
 public class CategoryDataManagerImpl implements CategoryDataManager {
 

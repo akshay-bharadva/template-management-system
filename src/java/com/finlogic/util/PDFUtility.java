@@ -12,10 +12,7 @@ import java.io.FileNotFoundException;
 //import java.util.Date;
 import java.io.FileOutputStream;
 
-/**
- *
- * @author njuser
- */
+
 public class PDFUtility {
 
     public String generatePDF(String refNo,String data ,String pdfName) throws FileNotFoundException {

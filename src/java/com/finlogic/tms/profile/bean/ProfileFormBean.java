@@ -5,10 +5,7 @@
  */
 package com.finlogic.tms.profile.bean;
 
-/**
- *
- * @author njuser
- */
+
 public class ProfileFormBean {
     
     String txtFname;

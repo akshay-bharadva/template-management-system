@@ -4,18 +4,23 @@
     Author     : njuser
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <main class="container my-4 mb-5">
     <div <c:if test="${USERTYPE eq 'USER'}">style="display: none"</c:if>>
         <div class="row">
-            <div class="col">
-                <label>Category </label><br>
-                <h3>${CategoryCount}</h3>
+            <div class="col-md-6">
+                <div class="card text-dark mb-3 p-3" style="background: #dfe6e9">
+                    <label>Category </label>
+                    <h3>${CategoryCount}</h3>
+                </div>
             </div>
-            <div class="col">
-                <label>Default Category </label>
-                <h3>${DefaultCount}</h3>
+            <div class="col-md-6">
+                <div class="card text-dark mb-3 p-3" style="background: #ffeaa7">
+                    <label>Default Category </label>
+                    <h3>${DefaultCount}</h3>
+                </div>
             </div>
         </div>
     </div>
