@@ -1,0 +1,10 @@
+  /* styles */
+.nav-item{
+    cursor: pointer !important;
+}
+
+/* height */
+.ck.ck-content.ck-editor__editable.ck-rounded-corners.ck-editor__editable_inline.ck-blurred,
+.ck.ck-content.ck-editor__editable.ck-rounded-corners.ck-editor__editable_inline.ck-focused{
+  min-height:400px !important;
+}    
